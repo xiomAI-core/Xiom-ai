@@ -11,7 +11,7 @@
 
   // Vercel demo URLs (no custom domain yet)
   var VERCEL_MARKETING = 'https://xiom-marketing.vercel.app';
-  var VERCEL_APP = 'https://xiom-app.vercel.app';
+  var VERCEL_APP = 'https://xiom-ai-app.vercel.app';
 
   // Production (after domain purchase)
   var PROD_MARKETING = 'https://xiom-ai.com';

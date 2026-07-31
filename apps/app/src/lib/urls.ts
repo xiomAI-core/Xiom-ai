@@ -3,7 +3,7 @@
  */
 
 const PROD_API = 'https://api.xiom-ai.com';
-const PROD_APP = 'https://xiom-app.vercel.app';
+const PROD_APP = 'https://xiom-ai-app.vercel.app';
 const PROD_MARKETING = 'https://xiom-marketing.vercel.app';
 
 export const API_URL = process.env['NEXT_PUBLIC_API_URL'] ?? PROD_API;
