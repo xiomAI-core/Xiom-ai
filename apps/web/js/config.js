@@ -1,17 +1,36 @@
 /**
- * XIOM marketing site — local vs production URL routing.
+ * XIOM marketing site — local / Vercel preview / production URL routing.
  * Loads before main.js; sets app/API links for onboarding flow.
  */
 (function () {
   'use strict';
 
-  var isLocal =
-    location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  var host = location.hostname;
+  var isLocal = host === 'localhost' || host === '127.0.0.1';
+  var isVercel = host.indexOf('vercel.app') !== -1;
+
+  // Vercel demo URLs (no custom domain yet)
+  var VERCEL_MARKETING = 'https://xiom-marketing.vercel.app';
+  var VERCEL_APP = 'https://xiom-app.vercel.app';
+
+  // Production (after domain purchase)
+  var PROD_MARKETING = 'https://xiom-ai.com';
+  var PROD_APP = 'https://app.xiom-ai.com';
+  var PROD_API = 'https://api.xiom-ai.com';
 
   window.XIOM_CONFIG = {
-    appUrl: isLocal ? 'http://localhost:3002' : 'https://app.xiom-ai.com',
-    apiUrl: isLocal ? 'http://localhost:3001' : 'https://api.xiom-ai.com',
-    marketingUrl: isLocal ? 'http://localhost:3000' : 'https://xiom-ai.com',
+    appUrl: isLocal
+      ? 'http://localhost:3002'
+      : isVercel
+        ? VERCEL_APP
+        : PROD_APP,
+    // API not on Vercel yet — keep prod host; /docs works once API is deployed
+    apiUrl: isLocal ? 'http://localhost:3001' : PROD_API,
+    marketingUrl: isLocal
+      ? 'http://localhost:3000'
+      : isVercel
+        ? VERCEL_MARKETING
+        : PROD_MARKETING,
     releasesUrl: 'https://github.com/xiomAI-core/Xiom-ai/releases',
   };
 

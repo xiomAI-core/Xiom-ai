@@ -1,16 +1,14 @@
 /**
- * Frontend URL helpers — use env in dev, production defaults in deploy.
+ * Frontend URL helpers — use env in deploy, sensible defaults for Vercel demo.
  */
 
 const PROD_API = 'https://api.xiom-ai.com';
-const PROD_APP = 'https://app.xiom-ai.com';
-const PROD_MARKETING = 'https://xiom-ai.com';
+const PROD_APP = 'https://xiom-app.vercel.app';
+const PROD_MARKETING = 'https://xiom-marketing.vercel.app';
 
-export const API_URL =
-  process.env['NEXT_PUBLIC_API_URL'] ?? PROD_API;
+export const API_URL = process.env['NEXT_PUBLIC_API_URL'] ?? PROD_API;
 
-export const APP_URL =
-  process.env['NEXT_PUBLIC_APP_URL'] ?? PROD_APP;
+export const APP_URL = process.env['NEXT_PUBLIC_APP_URL'] ?? PROD_APP;
 
 export const MARKETING_URL =
   process.env['NEXT_PUBLIC_MARKETING_URL'] ?? PROD_MARKETING;

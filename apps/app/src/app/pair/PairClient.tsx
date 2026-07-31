@@ -6,13 +6,19 @@ import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
 const RELEASES_URL = 'https://github.com/xiomAI-core/Xiom-ai/releases'
-const MARKETING_DOWNLOAD = 'https://xiom-ai.com/#download-desktop'
+const MARKETING_DOWNLOAD = 'https://xiom-marketing.vercel.app/#download-desktop'
+const MARKETING_PROD = 'https://xiom-ai.com/#download-desktop'
 
 function marketingDownloadUrl(): string {
   if (typeof window === 'undefined') return MARKETING_DOWNLOAD
-  const isLocal =
-    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  return isLocal ? 'http://localhost:3000/#download-desktop' : MARKETING_DOWNLOAD
+  const host = window.location.hostname
+  if (host === 'localhost' || host === '127.0.0.1') {
+    return 'http://localhost:3000/#download-desktop'
+  }
+  if (host.indexOf('vercel.app') !== -1) {
+    return MARKETING_DOWNLOAD
+  }
+  return MARKETING_PROD
 }
 
 export default function PairClient() {
