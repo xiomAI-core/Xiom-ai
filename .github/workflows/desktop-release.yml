@@ -54,7 +54,8 @@ jobs:
   release:
     name: Soft release
     needs: build
-    if: ${{ needs.build.result == 'success' }}
+    # Run even if optional matrix targets (e.g. windows-arm64) fail
+    if: ${{ always() && !cancelled() && needs.build.result != 'failure' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -63,7 +64,8 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
-      - name: Create GitHub Release (soft)
+          merge-multiple: true
+      - name: Create GitHub Release (draft)
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
