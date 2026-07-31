@@ -1,0 +1,14 @@
+{
+  "name": "@xiom/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "serve . -p 3000",
+    "build": "echo 'Static site — no build step needed'",
+    "lint": "echo 'ok'",
+    "type-check": "echo 'ok'"
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  }
+}

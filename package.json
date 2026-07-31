@@ -1,0 +1,25 @@
+{
+  "name": "xiom",
+  "private": true,
+  "scripts": {
+    "dev:all": "turbo run dev --parallel --filter=@xiom/web --filter=@xiom/app --filter=@xiom/api",
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.5.4",
+    "@types/node": "^22.5.0",
+    "prettier": "^3.3.3",
+    "eslint": "^9.9.0"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.9.0"
+}

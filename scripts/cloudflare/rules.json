@@ -1,0 +1,72 @@
+# Cloudflare edge cache + WAF notes for api.xiom-ai.com
+# Apply via dashboard, Terraform, or Wrangler (cache rules API).
+# Service branding: xiom-api (alias axiom-api in older docs).
+
+{
+  "zone": "xiom-ai.com",
+  "host": "api.xiom-ai.com",
+  "cache_rules": [
+    {
+      "name": "worldmodel-live",
+      "expression": "(http.request.uri.path eq \"/api/worldmodel/live\")",
+      "edge_ttl_seconds": 30,
+      "browser_ttl_seconds": 10,
+      "cache_key": "path+query"
+    },
+    {
+      "name": "token-price",
+      "expression": "(http.request.uri.path eq \"/api/token/price\") or (http.request.uri.path matches \"^/api/token\")",
+      "edge_ttl_seconds": 60,
+      "browser_ttl_seconds": 30,
+      "cache_key": "path"
+    },
+    {
+      "name": "site-metrics",
+      "expression": "(http.request.uri.path eq \"/api/site-metrics\") or (http.request.uri.path eq \"/api/context/site-metrics\")",
+      "edge_ttl_seconds": 60,
+      "browser_ttl_seconds": 30,
+      "cache_key": "path"
+    },
+    {
+      "name": "bidwall",
+      "expression": "(http.request.uri.path matches \"^/api/bidwall\")",
+      "edge_ttl_seconds": 30,
+      "browser_ttl_seconds": 15,
+      "cache_key": "path"
+    },
+    {
+      "name": "health",
+      "expression": "(http.request.uri.path eq \"/health\") or (http.request.uri.path matches \"^/health\")",
+      "edge_ttl_seconds": 5,
+      "browser_ttl_seconds": 0,
+      "cache_key": "path"
+    }
+  ],
+  "bypass_cache": [
+    "/api/intake",
+    "/api/agent-access",
+    "/mcp",
+    "/api/v2"
+  ],
+  "rate_limits": [
+    {
+      "name": "public-api",
+      "expression": "(http.request.uri.path matches \"^/api/\")",
+      "requests_per_period": 100,
+      "period_seconds": 60,
+      "action": "managed_challenge"
+    },
+    {
+      "name": "intake-writes",
+      "expression": "(http.request.uri.path eq \"/api/intake\" and http.request.method eq \"POST\")",
+      "requests_per_period": 20,
+      "period_seconds": 60,
+      "action": "block"
+    }
+  ],
+  "waf": {
+    "managed_ruleset": "Cloudflare Managed Ruleset",
+    "owasp_core": true,
+    "notes": "Enable Bot Fight Mode for /api/intake; challenge anonymous scrapers on /api/worldmodel/live"
+  }
+}

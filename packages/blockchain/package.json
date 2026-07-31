@@ -1,0 +1,45 @@
+{
+  "name": "@xiom/blockchain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./chains": {
+      "types": "./dist/chains.d.ts",
+      "import": "./dist/chains.js",
+      "default": "./dist/chains.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "echo 'ok'"
+  },
+  "dependencies": {
+    "@xiom/types": "workspace:*",
+    "viem": "^2.21.1",
+    "wagmi": "^2.12.7"
+  },
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "@zerodev/sdk": ">=5.0.0",
+    "@zerodev/ecdsa-validator": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@zerodev/sdk": { "optional": true },
+    "@zerodev/ecdsa-validator": { "optional": true }
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vitest": "^1.6.0"
+  }
+}

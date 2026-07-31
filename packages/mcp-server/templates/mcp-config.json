@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "mcpServerUrl": "http://127.0.0.1:54321",
+  "humanId": "auto-detect-from-passport",
+  "authorityLevel": "supervised",
+  "surfaceId": "desktop-chat",
+  "_comment": "Install a copy at ~/xiom/mcp-config.json (or ~/.xiom/mcp-config.json). Tool IDs use axiom_* prefix for MCP compatibility.",
+  "providers": {
+    "claude-code": {
+      "mcpServers": {
+        "xiom": {
+          "url": "http://127.0.0.1:54321/mcp",
+          "transport": "http"
+        }
+      }
+    },
+    "codex": {
+      "mcpServers": {
+        "xiom": {
+          "command": "xiom-mcp",
+          "args": [],
+          "env": {
+            "XIOM_HUMAN_ID": "auto-detect-from-passport"
+          }
+        }
+      }
+    },
+    "gemini": {
+      "mcpServers": {
+        "xiom": {
+          "httpUrl": "http://127.0.0.1:54321/mcp"
+        }
+      }
+    }
+  }
+}

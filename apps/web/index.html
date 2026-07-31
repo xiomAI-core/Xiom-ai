@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta -->
+  <title>XIOM · Your Personal AI Operating System</title>
+  <meta name="description" content="Stop prompt-chasing. Own the control layer. XIOM turns AI into a system that works with you — on your terms." />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="XIOM · Your Personal AI Operating System" />
+  <meta property="og:description" content="Stop prompt-chasing. Own the control layer. XIOM turns AI into a system that works with you — on your terms." />
+  <meta property="og:image"       content="/assets/XiomCard.jpeg" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://xiom-ai.com" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="XIOM · Your Personal AI Operating System" />
+  <meta name="twitter:description" content="Stop prompt-chasing. Own the control layer." />
+  <meta name="twitter:image"       content="/assets/XiomCard.jpeg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SITE SHELL — centered hero + menu + section pages
+     ═══════════════════════════════════════════════════════════ -->
+<div class="site-shell" id="siteShell">
+
+  <!-- Home view: intro typewriter → HUD dashboard -->
+  <div class="home-view" id="homeView">
+
+    <div class="hud-corner hud-corner-tl hud-chrome" aria-hidden="true"></div>
+    <div class="hud-corner hud-corner-tr hud-chrome" aria-hidden="true"></div>
+    <div class="hud-corner hud-corner-bl hud-chrome" aria-hidden="true"></div>
+    <div class="hud-corner hud-corner-br hud-chrome" aria-hidden="true"></div>
+
+    <header class="hud-header hud-chrome" aria-hidden="true">
+      <span class="hud-header-logo">XIOM</span>
+      <div class="hud-header-actions">
+        <a href="#" class="hud-header-cta" data-xiom-api-link target="_blank" rel="noopener noreferrer">
+          API DOCS
+        </a>
+        <a href="#" class="hud-header-cta" data-xiom-app-link data-xiom-app-path="/">
+          LAUNCH APP <span class="hud-dot" aria-hidden="true"></span>
+        </a>
+      </div>
+    </header>
+
+    <div class="hud-body" id="menuGrid">
+
+      <nav class="hud-nav hud-nav-left hud-chrome" aria-hidden="true" aria-label="Sections left">
+        <button type="button" class="hud-nav-item" data-section-id="intro">
+          <span class="hud-nav-num">01</span>
+          <span class="hud-nav-label">INTRODUCTION</span>
+          <span class="hud-nav-line" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="problem">
+          <span class="hud-nav-num">02</span>
+          <span class="hud-nav-label">PROBLEM</span>
+          <span class="hud-nav-line" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="product">
+          <span class="hud-nav-num">03</span>
+          <span class="hud-nav-label">PRODUCT</span>
+          <span class="hud-nav-line" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="levels">
+          <span class="hud-nav-num">04</span>
+          <span class="hud-nav-label">AGENCY LEVELS</span>
+          <span class="hud-nav-line" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="science">
+          <span class="hud-nav-num">05</span>
+          <span class="hud-nav-label">SCIENCE</span>
+          <span class="hud-nav-line" aria-hidden="true"></span>
+        </button>
+      </nav>
+
+      <div class="hud-center" id="heroCentered">
+        <h1 class="hud-title">XIOM</h1>
+        <p class="hud-subtitle hud-chrome" aria-hidden="true">INTELLIGENCE BEYOND NETWORKS</p>
+
+        <div class="hud-globe-stack">
+          <div class="hud-rings hud-chrome" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div id="hero-globe" class="hero-globe-wrap" aria-hidden="true"></div>
+        </div>
+
+        <div class="typewriter-block" id="typewriterBlock">
+          <p class="typewriter-label" id="twLabel" aria-live="polite"></p>
+          <pre class="typewriter-text" id="twText" aria-live="polite"></pre>
+          <p class="typewriter-question" id="twQuestion" aria-live="polite"></p>
+          <div class="prompt-buttons is-hidden" id="promptButtons">
+            <button class="prompt-btn" id="btnYes" type="button" onclick="handlePromptAnswer('yes')">[ YES ]</button>
+            <button class="prompt-btn" id="btnNo" type="button" onclick="handlePromptAnswer('no')">[ NO ]</button>
+          </div>
+        </div>
+
+        <a href="#" class="hud-launch-main hud-chrome" data-xiom-app-link data-xiom-app-path="/" aria-hidden="true">
+          LAUNCH APP →
+        </a>
+      </div>
+
+      <nav class="hud-nav hud-nav-right hud-chrome" aria-hidden="true" aria-label="Sections right">
+        <button type="button" class="hud-nav-item" data-section-id="memory">
+          <span class="hud-nav-line" aria-hidden="true"></span>
+          <span class="hud-nav-num">06</span>
+          <span class="hud-nav-label">MEMORY</span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="roadmap">
+          <span class="hud-nav-line" aria-hidden="true"></span>
+          <span class="hud-nav-num">07</span>
+          <span class="hud-nav-label">ROADMAP</span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="connect">
+          <span class="hud-nav-line" aria-hidden="true"></span>
+          <span class="hud-nav-num">08</span>
+          <span class="hud-nav-label">CONNECT</span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="download-desktop">
+          <span class="hud-nav-line" aria-hidden="true"></span>
+          <span class="hud-nav-num">09</span>
+          <span class="hud-nav-label">DOWNLOAD DESKTOP</span>
+        </button>
+        <button type="button" class="hud-nav-item" data-section-id="science" data-scroll-to="research-foundations">
+          <span class="hud-nav-line" aria-hidden="true"></span>
+          <span class="hud-nav-num">10</span>
+          <span class="hud-nav-label">RESEARCH</span>
+        </button>
+      </nav>
+
+    </div>
+
+    <footer class="hud-footer hud-chrome" aria-hidden="true">
+      <div class="hud-footer-left">
+        <span class="hud-online">ONLINE</span>
+        <span class="hud-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="hud-footer-center">
+        SCROLL TO EXPLORE <span class="hud-chevron" aria-hidden="true">⌄</span>
+      </div>
+      <div class="hud-footer-social">
+        <a href="https://twitter.com/xiom_ai" target="_blank" rel="noopener">X</a>
+        <a href="https://github.com/xiom-ai/xiom" target="_blank" rel="noopener">GITHUB</a>
+        <a href="https://linkedin.com/company/xiom-ai" target="_blank" rel="noopener">LINKEDIN</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Section pages — full screen when selected -->
+  <div class="section-back-bar" id="sectionBackBar">
+    <button type="button" class="section-back-btn" data-back-menu>← Menu</button>
+  </div>
+  <main class="section-stage" id="sectionStage">
+
+<section id="intro" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">Introduction</p>
+
+    <h2 class="text-section-title reveal" style="max-width: 700px;">
+      The gap isn't in what AI can do.<br>
+      It's in what AI is <em>allowed</em> to do.
+    </h2>
+
+    <p class="text-body intro-body reveal">
+      AI models advance monthly. The way you use them hasn't changed in two years.<br>
+      You ask. It answers. You forget. It forgets.<br>
+      The most powerful technology in history, reduced to a glorified search bar.
+    </p>
+
+    <!-- TODAY vs WHAT'S POSSIBLE comparison -->
+    <div class="comparison-header reveal">
+      <span>Today's AI</span>
+      <span>What's Possible</span>
+    </div>
+
+    <div class="comparison-grid stagger reveal">
+
+      <!-- Row 01 -->
+      <div class="comparison-row">
+        <span class="row-number">01</span>
+        <div class="row-today">Waits for your prompt</div>
+        <span class="row-arrow">→</span>
+        <div class="row-possible">
+          <strong>Initiates when it matters</strong>
+          <small>Proactive delivery before you ask</small>
+        </div>
+      </div>
+
+      <!-- Row 02 -->
+      <div class="comparison-row">
+        <span class="row-number">02</span>
+        <div class="row-today">Black box decisions</div>
+        <span class="row-arrow">→</span>
+        <div class="row-possible">
+          <strong>Fully explainable reasoning</strong>
+          <small>Every action has a receipt</small>
+        </div>
+      </div>
+
+      <!-- Row 03 -->
+      <div class="comparison-row">
+        <span class="row-number">03</span>
+        <div class="row-today">Generates text</div>
+        <span class="row-arrow">→</span>
+        <div class="row-possible">
+          <strong>Executes real outcomes</strong>
+          <small>Actions, not drafts</small>
+        </div>
+      </div>
+
+      <!-- Row 04 -->
+      <div class="comparison-row">
+        <span class="row-number">04</span>
+        <div class="row-today">Static responses</div>
+        <span class="row-arrow">→</span>
+        <div class="row-possible">
+          <strong>Continuous co-evolution</strong>
+          <small>Learns and improves with every interaction</small>
+        </div>
+      </div>
+
+      <!-- Row 05 -->
+      <div class="comparison-row">
+        <span class="row-number">05</span>
+        <div class="row-today">Their platform, their rules</div>
+        <span class="row-arrow">→</span>
+        <div class="row-possible">
+          <strong>Your system, your data</strong>
+          <small>Local-first, portable, sovereign</small>
+        </div>
+      </div>
+
+      <!-- Row 06 -->
+      <div class="comparison-row">
+        <span class="row-number">06</span>
+        <div class="row-today">Forgets everything</div>
+        <span class="row-arrow">→</span>
+        <div class="row-possible">
+          <strong>Remembers what matters</strong>
+          <small>Persistent world model that compounds</small>
+        </div>
+      </div>
+
+    </div><!-- /comparison-grid -->
+
+    <!-- Why This Gap Exists card -->
+    <div class="card intro-explanation reveal">
+      <p class="text-label" style="color: var(--fg-muted); margin-bottom: 1.5rem;">Why This Gap Exists</p>
+      <p class="text-body" style="color: var(--fg-secondary);">
+        It's not a technology problem — today's AI models are extraordinary.
+        The limitation is architectural: they're designed as products you visit,
+        not partners who know you. They optimize for engagement metrics, not your
+        life outcomes. You adapt to their interface — they never adapt to your reality.
+      </p>
+      <p class="text-body" style="margin-top: 2rem; color: var(--fg-secondary); font-style: italic;">
+        <strong style="font-style: normal; color: var(--fg);">XIOM</strong> changes what AI is allowed to do.
+      </p>
+      <p class="text-body" style="margin-top: 1rem; color: var(--fg-secondary);">
+        Not a chatbot. Not an app.<br>
+        A persistent, private, proactive intelligence layer<br>
+        that works for you — even when you're not looking.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — PROBLEM
+     ═══════════════════════════════════════════════════════════ -->
+<section id="problem" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">1 — THE PROBLEM</p>
+
+    <h2 class="text-section-title reveal" style="max-width: 700px;">
+      Everyone has the same AI.<br>
+      If your value is prompting — you're competing with everyone.
+    </h2>
+
+    <!-- ── THE MATH ── -->
+    <div class="reveal">
+      <p class="text-label mt-xl mb-sm" style="color: var(--fg-muted);">THE MATH</p>
+      <h3 class="text-subsection mb-lg">Why you have no moat</h3>
+    </div>
+
+    <div class="grid-2 stagger reveal">
+      <div class="card">
+        <p class="text-label mb-md" style="color: rgba(255,255,255,0.35);">Your "AI advantage"</p>
+        <ul class="x-list">
+          <li>Same models as everyone <span style="opacity:0.4; font-size:0.75rem; margin-left:auto;">0 moat</span></li>
+          <li>Prompts anyone can learn <span style="opacity:0.4; font-size:0.75rem; margin-left:auto;">0 moat</span></li>
+          <li>Context in your head, not a system <span style="opacity:0.4; font-size:0.75rem; margin-left:auto;">0 moat</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="text-label mb-md" style="color: rgba(255,255,255,0.35);">Your labor</p>
+        <ul class="x-list">
+          <li>Re-explaining every session <span style="opacity:0.4; font-size:0.75rem; margin-left:auto;">replaceable</span></li>
+          <li>Copy-paste-verify loop <span style="opacity:0.4; font-size:0.75rem; margin-left:auto;">replaceable</span></li>
+          <li>Manual follow-ups <span style="opacity:0.4; font-size:0.75rem; margin-left:auto;">replaceable</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── LOOP DIAGRAM ── -->
+    <div class="loop-diagram reveal">
+      <div class="loop-steps">
+        Re-explain &nbsp;→&nbsp; Generate &nbsp;→&nbsp; Copy &nbsp;→&nbsp; Paste &nbsp;→&nbsp; Verify &nbsp;↻&nbsp; Repeat
+      </div>
+      <p class="text-body" style="margin-top: 1rem; color: var(--fg-muted); font-family: var(--font-mono); font-size: 0.875rem;">
+        ∞ &nbsp; YOU<br><br>
+        Every hour in this loop is an hour anyone else could do.<br>
+        <em>No compounding. No leverage. Just labor.</em>
+      </p>
+    </div>
+
+    <!-- ── THE TAX ── -->
+    <div class="reveal">
+      <p class="text-label mb-sm" style="color: var(--fg-muted);">THE TAX</p>
+      <h3 class="text-subsection mb-lg">What this loop actually costs you</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="card">
+        <p class="text-label mb-sm" style="color: var(--fg-muted);">Time tax</p>
+        <p class="cost-number">+2h / week</p>
+        <p class="text-body-sm" style="color: var(--fg-secondary); margin-top: 0.5rem;">
+          You spend hours re-explaining, fixing, and following up. None of it compounds.
+        </p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color: var(--fg-muted);">Attention tax</p>
+        <p class="cost-number">constant interrupts</p>
+        <p class="text-body-sm" style="color: var(--fg-secondary); margin-top: 0.5rem;">
+          You stay in the loop as executor, verifier, and reminder. Context switching becomes the job.
+        </p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color: var(--fg-muted);">Failure tax</p>
+        <p class="cost-number">missed outcomes</p>
+        <p class="text-body-sm" style="color: var(--fg-secondary); margin-top: 0.5rem;">
+          Follow-ups slip. Deadlines drift. You only notice when it's already late.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── THE TRAP ── -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color: var(--fg-muted);">THE TRAP</p>
+      <h3 class="text-subsection mb-lg">What you don't own</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="card">
+        <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fg-muted); font-family: var(--font-mono);">✗</p>
+        <p class="text-label mb-sm" style="color: var(--fg-muted);">Context</p>
+        <p class="text-body-sm" style="color: var(--fg-secondary);">
+          Your history lives in their UI. Switch vendors — lose everything.
+        </p>
+      </div>
+      <div class="card">
+        <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fg-muted); font-family: var(--font-mono);">✗</p>
+        <p class="text-label mb-sm" style="color: var(--fg-muted);">Rules</p>
+        <p class="text-body-sm" style="color: var(--fg-secondary);">
+          No enforceable policies. Every session is a new negotiation.
+        </p>
+        <div class="code-block mt-sm">
+          <span class="code-key">if</span> (amount &gt; $500) → <span class="code-value">ask</span><br>
+          <span class="code-error">// ignored every session</span>
+        </div>
+      </div>
+      <div class="card">
+        <p style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fg-muted); font-family: var(--font-mono);">✗</p>
+        <p class="text-label mb-sm" style="color: var(--fg-muted);">Loop</p>
+        <p class="text-body-sm" style="color: var(--fg-secondary);">
+          Drafts aren't results. You copy, paste, send, check, fix.
+        </p>
+        <p style="font-size: 0.75rem; color: rgba(255,255,255,0.25); margin-top: 0.75rem; font-family: var(--font-mono);">
+          Draft v1 → Draft v2 → Draft v3 → ...
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WARNING CARD ── -->
+    <div class="card reveal mt-lg" style="border-color: rgba(255,200,0,0.12);">
+      <p class="text-body" style="color: var(--fg-secondary);">
+        ⚠ &nbsp; A junior with the same prompts produces the same output.
+        A template could replace your "process."<br><br>
+        <strong style="color: var(--fg);">If you are the glue — <em>you're the part that gets replaced.</em></strong>
+      </p>
+    </div>
+
+    <!-- ── THE SHIFT ── -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color: var(--fg-muted);">THE SHIFT</p>
+      <h3 class="text-subsection mb-lg">Own the infrastructure, not the chatbot</h3>
+    </div>
+
+    <div class="grid-2 stagger reveal">
+      <div class="card renting-card">
+        <p class="text-label mb-lg" style="color: var(--fg-muted);">○ &nbsp; RENTING</p>
+        <ul class="x-list">
+          <li>Context locked in vendor UI</li>
+          <li>Rules reset every session</li>
+          <li>Manual copy-paste loop</li>
+          <li>No audit trail</li>
+          <li>Vendor lock-in</li>
+        </ul>
+      </div>
+      <div class="card owning-card" style="border-color: rgba(255,255,255,0.18);">
+        <p class="text-label mb-lg" style="color: var(--fg);">● &nbsp; XIOM</p>
+        <ul class="check-list">
+          <li>Memory portable, versioned, yours</li>
+          <li>Policy rules that persist</li>
+          <li>Execution — actions, not drafts</li>
+          <li>Audit receipts for everything</li>
+          <li style="color: var(--fg-secondary);">↻ &nbsp; Model swap anytime</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-body reveal mt-md" style="color: var(--fg-secondary);">
+      Assistants are an interface. XIOM is infrastructure.<br>
+      Interfaces talk to you. Infrastructure carries responsibility when you forget.
+    </p>
+
+    <!-- ── THE ESCAPE ── -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color: var(--fg-muted);">THE ESCAPE</p>
+      <h3 class="text-subsection mb-lg">From replaceable to irreplaceable</h3>
+    </div>
+
+    <div class="grid-2 stagger reveal">
+      <div class="card">
+        <p class="text-label mb-xs" style="color: var(--fg-muted);">REPLACEABLE</p>
+        <p class="text-body-sm mb-lg" style="color: var(--fg-secondary); font-style: italic;">
+          You <em>are</em> the system
+        </p>
+        <ul class="x-list">
+          <li>Memory lives in your head</li>
+          <li>Rules reset every session</li>
+          <li>Execution is manual labor</li>
+          <li>Anyone with prompts = same output</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color: rgba(255,255,255,0.14);">
+        <p class="text-label mb-xs" style="color: var(--fg);">IRREPLACEABLE</p>
+        <p class="text-body-sm mb-lg" style="color: var(--fg-secondary); font-style: italic;">
+          You <em>own</em> the system
+        </p>
+        <ul class="check-list">
+          <li>Memory compounds over time</li>
+          <li>Rules persist and enforce</li>
+          <li>AI does the labor</li>
+          <li>Your architecture is unique</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — PRODUCT
+     ═══════════════════════════════════════════════════════════ -->
+<section id="product" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">2 — PRODUCT</p>
+    <h2 class="text-section-title reveal" style="max-width:680px;">
+      The governance layer for personal AI.
+    </h2>
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:560px;margin-top:1rem;">
+      Policy-controlled actions. Persistent context. Auditable outcomes.
+    </p>
+
+    <!-- BEFORE / AFTER -->
+    <div class="grid-2 stagger reveal" style="margin:4rem 0;">
+      <div class="card assistant-card">
+        <p class="text-label" style="color:var(--fg-muted);">○ &nbsp; TYPICAL ASSISTANT</p>
+        <div style="margin-top:1.75rem;display:grid;gap:0.75rem;">
+          <p style="font-size:0.875rem;font-weight:300;color:rgba(255,255,255,0.35);">... &nbsp; Waited for prompt</p>
+          <p style="font-size:0.875rem;font-weight:300;color:rgba(255,255,255,0.35);">... &nbsp; Lost prior context</p>
+          <p style="font-size:0.875rem;font-weight:300;color:rgba(255,80,80,0.55);">✗ &nbsp; No action executed</p>
+        </div>
+        <div style="margin-top:2.5rem;font-size:0.6rem;letter-spacing:0.12em;color:rgba(255,255,255,0.2);line-height:1.8;">
+          PROMPT-DRIVEN · SESSION-BASED CONTEXT<br>SUGGESTS TEXT, NOT OUTCOMES
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(255,255,255,0.2);">
+        <p class="text-label" style="color:var(--fg);">● &nbsp; XIOM SYSTEM</p>
+        <div style="margin-top:1.75rem;display:grid;gap:0.75rem;">
+          <p style="font-size:0.875rem;font-weight:300;color:var(--success);">✓ &nbsp; Checked calendar</p>
+          <p style="font-size:0.875rem;font-weight:300;color:var(--success);">✓ &nbsp; Proposed reschedule</p>
+          <p style="font-size:0.875rem;font-weight:300;color:var(--success);">✓ &nbsp; Requested approval</p>
+          <p style="font-size:0.875rem;font-weight:300;color:var(--success);">✓ &nbsp; Sent invite</p>
+          <p style="font-size:0.875rem;font-weight:300;color:var(--success);">✓ &nbsp; Logged receipt</p>
+        </div>
+        <div style="margin-top:2.5rem;font-size:0.6rem;letter-spacing:0.12em;color:rgba(255,255,255,0.4);line-height:1.8;">
+          EVENT-DRIVEN · PERSISTENT STATE AND MEMORY<br>EXECUTES WITH VERIFICATION
+        </div>
+      </div>
+    </div>
+
+    <!-- GOVERNANCE LOOP -->
+    <div class="reveal">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">THE GOVERNANCE LOOP</p>
+      <h3 class="text-subsection mb-sm">Observe. Decide. Act. Verify. Learn.</h3>
+      <p class="text-body mb-lg" style="color:var(--fg-secondary);max-width:540px;">
+        Outcome governance for personal workflows. Policy-bound. Measurable. Reviewable.
+      </p>
+    </div>
+
+    <div class="governance-loop reveal">
+      <div class="loop-center">
+        <p style="font-size:0.65rem;letter-spacing:0.12em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:0.5rem;">Governing</p>
+        <p style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Your Outcomes</p>
+        <p style="font-size:0.75rem;color:var(--fg-muted);font-family:var(--font-mono);">24/7 · Autonomous</p>
+      </div>
+      <div class="loop-steps-grid">
+        <div class="loop-step"><span class="text-label">STEP 1</span>&nbsp; Observe — Calendar, health, memory, signals</div>
+        <div class="loop-step"><span class="text-label">STEP 2</span>&nbsp; Decide — Priority + authority check</div>
+        <div class="loop-step"><span class="text-label">STEP 3</span>&nbsp; Act — Execute or request approval</div>
+        <div class="loop-step"><span class="text-label">STEP 4</span>&nbsp; Verify — Confirm outcome achieved</div>
+        <div class="loop-step"><span class="text-label">STEP 5</span>&nbsp; Learn — Update policy + memory</div>
+      </div>
+    </div>
+    <p class="reveal" style="font-size:0.875rem;color:var(--fg-muted);font-style:italic;margin-top:1.5rem;">
+      Key difference: AI agents do tasks. XIOM governs outcomes.
+    </p>
+
+    <!-- SIX PROBLEMS SOLVED -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">SIX PROBLEMS SOLVED</p>
+      <h3 class="text-subsection mb-lg">What XIOM addresses.</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="problem-card">
+        <p class="problem-number">01 &nbsp; INITIATIVE</p>
+        <p class="problem-before">"AI waits for prompts"</p>
+        <p class="problem-after">Goal-triggered actions (within policy)</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-number">02 &nbsp; TRANSPARENCY</p>
+        <p class="problem-before">"Black box decisions"</p>
+        <p class="problem-after">Intent + Context + Policy → Action (auditable)</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-number">03 &nbsp; EXECUTION</p>
+        <p class="problem-before">"Text suggestions only"</p>
+        <p class="problem-after">Outcome execution with verification</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-number">04 &nbsp; ADAPTATION</p>
+        <p class="problem-before">"Static configuration"</p>
+        <p class="problem-after">Versioned policies with feedback loops</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-number">05 &nbsp; CONTROL</p>
+        <p class="problem-before">"Platform lock-in"</p>
+        <p class="problem-after">Local-first, exportable, authority tiers</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-number">06 &nbsp; CONTINUITY</p>
+        <p class="problem-before">"Session amnesia"</p>
+        <p class="problem-after">Constitutional Memory with drift detection</p>
+      </div>
+    </div>
+
+    <!-- AUDITABILITY — Receipt card -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">AUDITABILITY</p>
+      <h3 class="text-subsection mb-lg">Every action is reviewable.</h3>
+    </div>
+
+    <div class="receipt-card code-block reveal" style="max-width:600px;">
+      <p style="color:rgba(255,255,255,0.35);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;">
+        Action triggered: Goal drift detected → Priority alert sent
+      </p>
+      <p style="margin-top:1rem;color:rgba(255,255,255,0.5);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;">
+        RECEIPT #2026-01-04-0847
+      </p>
+      <div style="margin-top:1.5rem;display:grid;gap:0.75rem;">
+        <div class="receipt-row">
+          <span class="receipt-label">INTENT</span>
+          <span style="color:var(--fg-accent);">Notify user of goal drift</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">CONTEXT</span>
+          <span style="color:var(--fg-secondary);">Goal "Ship XIOM" · 3 blockers · Last session 17d ago</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">POLICY</span>
+          <span style="color:var(--fg-secondary);">Alert if goal drift &gt; 3 days v14</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">ACTION</span>
+          <span style="color:var(--success);">Priority alert sent ✓</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">APPROVAL</span>
+          <span style="color:var(--fg-secondary);">User confirmed re-prioritization</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">ROLLBACK</span>
+          <span style="color:var(--fg-muted);">Available</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTHORITY TIERS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">AUTHORITY</p>
+      <h3 class="text-subsection mb-lg">Set permission tiers per workflow.</h3>
+    </div>
+
+    <div class="reveal" style="border:1px solid var(--border);">
+      <div class="tier-row">
+        <span class="tier-name">Observe</span>
+        <span class="tier-desc">Read-only access. Monitors signals, surfaces insights. Never acts without permission.</span>
+        <span class="tier-badge">Read Only</span>
+      </div>
+      <div class="tier-row">
+        <span class="tier-name">Suggest</span>
+        <span class="tier-desc">Proposes actions for your review. Executes nothing until you approve.</span>
+        <span class="tier-badge">Passive</span>
+      </div>
+      <div class="tier-row">
+        <span class="tier-name">Confirm</span>
+        <span class="tier-desc">Executes pre-approved action templates. Asks for one-time confirmation per new pattern.</span>
+        <span class="tier-badge">Gated</span>
+      </div>
+      <div class="tier-row">
+        <span class="tier-name">Supervised</span>
+        <span class="tier-desc">Runs autonomously within defined scope. Flags edge cases. Full audit log.</span>
+        <span class="tier-badge">Scoped</span>
+      </div>
+      <div class="tier-row tier-autonomous">
+        <span class="tier-name">Autonomous</span>
+        <span class="tier-desc">Full policy-bound execution. Self-verifies, self-corrects, learns from outcomes.</span>
+        <span class="tier-badge">Full</span>
+      </div>
+    </div>
+
+    <!-- THE GATE — Sigma formula -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">THE GATE</p>
+      <h3 class="text-subsection mb-lg">Automation ships only when performance improves.</h3>
+    </div>
+
+    <div class="formula-display reveal">
+      σ = P(h+XIOM) − max(P<sub>h</sub>, P<sub>AI</sub>)
+    </div>
+
+    <div class="grid-3 stagger reveal" style="margin-top:2rem;">
+      <div class="card" style="text-align:center;">
+        <p style="font-size:1.5rem;font-weight:600;font-family:var(--font-mono);color:var(--success);margin-bottom:0.75rem;">σ &gt; 0</p>
+        <p class="text-label" style="color:var(--fg-muted);">Ship</p>
+        <p style="font-size:0.8rem;color:var(--fg-secondary);margin-top:0.5rem;font-weight:300;">Human + XIOM outperforms either alone</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <p style="font-size:1.5rem;font-weight:600;font-family:var(--font-mono);color:var(--fg-secondary);margin-bottom:0.75rem;">σ = 0</p>
+        <p class="text-label" style="color:var(--fg-muted);">Keep Manual</p>
+        <p style="font-size:0.8rem;color:var(--fg-secondary);margin-top:0.5rem;font-weight:300;">No measurable improvement — no change</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <p style="font-size:1.5rem;font-weight:600;font-family:var(--font-mono);color:rgba(255,80,80,0.7);margin-bottom:0.75rem;">σ &lt; 0</p>
+        <p class="text-label" style="color:var(--fg-muted);">Block</p>
+        <p style="font-size:0.8rem;color:var(--fg-secondary);margin-top:0.5rem;font-weight:300;">Automation degrades outcomes — rejected</p>
+      </div>
+    </div>
+
+    <!-- FOUR PRIMITIVES -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">THE ARCHITECTURE</p>
+      <h3 class="text-subsection mb-lg">Four primitives that connect the system.</h3>
+    </div>
+
+    <div class="grid-2 stagger reveal">
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">01 &nbsp; Constitutional Memory</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">Goals, constraints, and history — with full provenance. Versioned. Portable. Yours.</p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">02 &nbsp; Governance Engine</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">Observe, decide, approve, act, verify, learn. The loop that never stops.</p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">03 &nbsp; Execution Layer</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">Tool actions via scoped permissions and workflow policies. Actions, not drafts.</p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">04 &nbsp; Receipts</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">Intent, context, policy, action, result. Exportable. Reviewable. Anchored on Base.</p>
+      </div>
+    </div>
+
+    <!-- PRODUCT CTA -->
+    <div class="reveal" style="text-align:center;margin-top:5rem;padding:4rem 0;border-top:1px solid var(--border-subtle);">
+      <h3 class="text-subsection mb-sm">Ready to own your AI infrastructure?</h3>
+      <p class="text-body" style="margin:1rem auto 2.5rem;color:var(--fg-secondary);max-width:440px;">
+        Built for founders, operators, and creators with too much context.
+      </p>
+      <a href="#" data-xiom-app-link data-xiom-app-path="/create-my-agent" class="btn-primary">Request Early Access →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — AGENCY LEVELS
+     ═══════════════════════════════════════════════════════════ -->
+<section id="levels" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">3 — Operational Taxonomy</p>
+    <h2 class="text-section-title reveal" style="max-width:680px;">
+      They're all building agents.<br>We're building the next level.
+    </h2>
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:600px;margin-top:1rem;">
+      An operational taxonomy of AI autonomy — from informational systems to symbiotic AI.
+      Five levels. Only one creates true partnership. XIOM operates at Level 5.
+    </p>
+
+    <!-- L1–L5 TABLE -->
+    <div style="overflow-x:auto;margin-top:3rem;" class="reveal">
+      <table class="data-table levels-table" style="min-width:900px;">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Step Trigger</th>
+            <th>AI Initiative</th>
+            <th>Execute</th>
+            <th>Auto Loop</th>
+            <th>Persistent Memory</th>
+            <th>Policy Update</th>
+            <th>Audit</th>
+            <th>Scientific Class</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>L1 &nbsp; Informational AI</strong></td>
+            <td>User</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="font-size:0.75rem;color:var(--fg-muted);">Non-agent information systems</td>
+          </tr>
+          <tr>
+            <td><strong>L2 &nbsp; Reactive AI</strong></td>
+            <td>User</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="font-size:0.75rem;color:var(--fg-muted);">Reactive agents, interactive assistants</td>
+          </tr>
+          <tr>
+            <td><strong>L3 &nbsp; Mixed-Initiative AI</strong></td>
+            <td>User + AI alerts</td>
+            <td style="color:var(--fg-accent);">✓</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-secondary);">◊</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="font-size:0.75rem;color:var(--fg-muted);">Mixed-initiative interaction (HCI + AI)</td>
+          </tr>
+          <tr>
+            <td><strong>L4 &nbsp; Delegated / Agentic AI</strong></td>
+            <td>AI within task</td>
+            <td style="color:var(--fg-accent);">✓</td>
+            <td style="color:var(--fg-accent);">✓</td>
+            <td style="color:var(--fg-accent);">✓</td>
+            <td style="color:var(--fg-secondary);">◊</td>
+            <td style="color:var(--fg-muted);">✗</td>
+            <td style="color:var(--fg-secondary);">◊</td>
+            <td style="font-size:0.75rem;color:var(--fg-muted);">Goal-based agents under supervision</td>
+          </tr>
+          <tr class="l5-row">
+            <td><strong style="color:#fff;">L5 &nbsp; Symbiotic AI</strong></td>
+            <td>Long co-adaptive loop</td>
+            <td style="color:var(--success);">✓</td>
+            <td style="color:var(--success);">✓</td>
+            <td style="color:var(--success);">✓</td>
+            <td style="color:var(--success);">✓</td>
+            <td style="color:var(--success);">✓ by outcomes</td>
+            <td style="color:var(--success);">✓</td>
+            <td style="font-size:0.75rem;color:rgba(255,255,255,0.65);">Co-adaptive systems, human–AI teaming</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- L4 vs L5 -->
+    <div class="grid-2 stagger reveal" style="margin-top:4rem;">
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">L4 &nbsp; Agentic AI</p>
+        <div style="display:grid;gap:1rem;">
+          <div class="data-row" style="padding:0.75rem 0;"><span class="data-key">Lifecycle</span><span class="data-val">Task-bound → dies when task ends</span></div>
+          <div class="data-row" style="padding:0.75rem 0;"><span class="data-key">Initiative</span><span class="data-val">Within the assigned task only</span></div>
+          <div class="data-row" style="padding:0.75rem 0;"><span class="data-key">User Model</span><span class="data-val" style="color:var(--fg-muted);">◊ Optional, rarely maintained</span></div>
+          <div class="data-row" style="padding:0.75rem 0;border:none;"><span class="data-key">Policy Update</span><span class="data-val" style="color:var(--fg-muted);">✗ None — resets per session</span></div>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(255,255,255,0.2);">
+        <p class="text-label mb-lg" style="color:var(--fg);">L5 &nbsp; Symbiotic AI</p>
+        <div style="display:grid;gap:1rem;">
+          <div class="data-row" style="padding:0.75rem 0;"><span class="data-key">Lifecycle</span><span class="data-val">Persistent → lives alongside you</span></div>
+          <div class="data-row" style="padding:0.75rem 0;"><span class="data-key">Initiative</span><span class="data-val">Proactive, cross-context, goal-driven</span></div>
+          <div class="data-row" style="padding:0.75rem 0;"><span class="data-key">User Model</span><span class="data-val" style="color:var(--success);">✓ Mandatory — the world model</span></div>
+          <div class="data-row" style="padding:0.75rem 0;border:none;"><span class="data-key">Policy Update</span><span class="data-val" style="color:var(--success);">✓ By outcomes — self-improving</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHERE BIG TECH STANDS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">WHERE BIG TECH STANDS</p>
+      <h3 class="text-subsection mb-lg">They have the resources. They don't have the architecture.</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="product-level-card">
+        <span class="level-badge">L2 – L3</span>
+        <p style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;">ChatGPT App</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Reactive chat. Memory opt-in, siloed per account. No persistent policy enforcement.</p>
+      </div>
+      <div class="product-level-card">
+        <span class="level-badge">L2 – L3</span>
+        <p style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;">Claude App</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Conversational assistant. Projects feature partial continuity. No execution layer.</p>
+      </div>
+      <div class="product-level-card">
+        <span class="level-badge">L2 – L3</span>
+        <p style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;">Gemini App</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Google-integrated reactive AI. Cross-app data access but no user-governed policy layer.</p>
+      </div>
+      <div class="product-level-card">
+        <span class="level-badge">L4</span>
+        <p style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;">Operator (OpenAI)</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Task-scoped browser automation. Executes within session. No persistent user model.</p>
+      </div>
+      <div class="product-level-card">
+        <span class="level-badge">L4</span>
+        <p style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;">Computer Use (Anthropic)</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Desktop task execution. Powerful but stateless. No constitutional memory or auditing.</p>
+      </div>
+      <div class="product-level-card">
+        <span class="level-badge">L4</span>
+        <p style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;">Project Astra (Google)</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Multimodal agentic assistant. Impressive perception, limited cross-session persistence.</p>
+      </div>
+    </div>
+
+    <!-- STRUCTURAL BARRIERS TO L5 -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">STRUCTURAL BARRIERS</p>
+      <h3 class="text-subsection mb-lg">Why incumbents can't ship L5.</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="barrier-card">
+        <p class="barrier-title">Stateless Architecture</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Built for per-session inference. Persistent state requires full re-architecture.</p>
+      </div>
+      <div class="barrier-card">
+        <p class="barrier-title">Centralized Data</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Deep user models require data they can't legally hold in most markets.</p>
+      </div>
+      <div class="barrier-card">
+        <p class="barrier-title">Policy Update = Liability</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Self-modifying AI behavior creates regulatory and safety risk at scale.</p>
+      </div>
+      <div class="barrier-card">
+        <p class="barrier-title">Deep User Model = Privacy Risk</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Storing behavioral models on central servers conflicts with GDPR and user trust.</p>
+      </div>
+      <div class="barrier-card">
+        <p class="barrier-title">Revenue Model Conflict</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Subscription engagement metrics conflict with "do the task and step back" design.</p>
+      </div>
+      <div class="barrier-card">
+        <p class="barrier-title">Scale vs Depth</p>
+        <p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">L5 requires per-user depth. At 100M users, depth is operationally impossible.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 — SCIENCE
+     ═══════════════════════════════════════════════════════════ -->
+<section id="science" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">4 — The Science of L5</p>
+    <h2 class="text-section-title reveal" style="max-width:680px;">
+      Symbiotic AI is not a product decision.<br>It's a scientific claim.
+    </h2>
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:600px;margin-top:1rem;">
+      XIOM is grounded in six research traditions spanning cognitive science, control theory,
+      and human–computer interaction. The L5 framework is falsifiable, measurable, and peer-reviewed.
+    </p>
+
+    <!-- CANONICAL DEFINITION -->
+    <div class="definition-block reveal" style="margin-top:3rem;">
+      <p>
+        "A Symbiotic AI system maintains a persistent, bidirectionally updated model of the user,
+        takes proactive goal-aligned initiative across contexts, executes actions under policy governance,
+        and adapts its own policies based on verified outcomes — in a continuous co-adaptive loop with
+        a specific human partner."
+      </p>
+      <cite>— XIOM L5 Definition · Operational Taxonomy of AI Autonomy, 2026</cite>
+    </div>
+
+    <!-- FOUR AXIOMS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">THE FOUR AXIOMS</p>
+      <h3 class="text-subsection mb-lg">What makes an AI system truly L5.</h3>
+    </div>
+
+    <div class="grid-2 stagger reveal">
+      <div class="axiom-card">
+        <p class="axiom-number">A1</p>
+        <p class="axiom-title">Mandatory User Model</p>
+        <p class="axiom-body">
+          The system must maintain a persistent, structured model of the specific user —
+          including goals, constraints, preferences, and behavioral patterns.
+          This model is not optional. Without it, the system cannot be L5.
+        </p>
+      </div>
+      <div class="axiom-card">
+        <p class="axiom-number">A2</p>
+        <p class="axiom-title">Bidirectional Policy Update</p>
+        <p class="axiom-body">
+          Policy governing AI behavior must be updated based on outcomes, not just instructions.
+          The system learns what works. Rules evolve. The user's preferences are encoded structurally,
+          not re-stated each session.
+        </p>
+      </div>
+      <div class="axiom-card">
+        <p class="axiom-number">A3</p>
+        <p class="axiom-title">Co-Adaptation Loop</p>
+        <p class="axiom-body">
+          Both the human and the AI change over time in response to each other.
+          This is not personalization — it is genuine adaptation. The system's model of you
+          diverges from any population average.
+        </p>
+      </div>
+      <div class="axiom-card">
+        <p class="axiom-number">A4</p>
+        <p class="axiom-title">Divided Subjectivity</p>
+        <p class="axiom-body">
+          The AI maintains distinct representation of its own state, the user's state, and the
+          shared context. It can reason about the difference. Confusion between these leads to
+          hallucinated alignment.
+        </p>
+      </div>
+    </div>
+
+    <!-- SYNERGY FORMULA -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">SYNERGY FORMULA</p>
+      <h3 class="text-subsection mb-sm">When does the system ship?</h3>
+      <p class="text-body mb-lg" style="color:var(--fg-secondary);max-width:520px;">
+        XIOM measures performance improvement before enabling autonomous action.
+        If the combined system does not outperform either alone — it does not act.
+      </p>
+    </div>
+
+    <div class="formula-display reveal">
+      S = P(h+ai) &minus; max(P<sub>h</sub>, P<sub>ai</sub>)
+    </div>
+    <div class="grid-3 stagger reveal" style="margin-top:1.5rem;">
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">P(h+ai)</p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Performance of human + XIOM system combined</p></div>
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">P<sub>h</sub></p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Performance of human alone (baseline)</p></div>
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">P<sub>ai</sub></p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Performance of AI alone (no human)</p></div>
+    </div>
+
+    <!-- SYNC FORMULA -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">SYNC QUALITY METRIC</p>
+      <h3 class="text-subsection mb-sm">How well are human and AI aligned?</h3>
+      <p class="text-body mb-lg" style="color:var(--fg-secondary);max-width:520px;">
+        Sync (σ) measures the quality of human–AI coordination across four dimensions.
+        All four must be present for L5 to function.
+      </p>
+    </div>
+
+    <div class="formula-display reveal">
+      σ = (C &middot; F &middot; Q &middot; K)<sup>1/4</sup>
+    </div>
+    <div class="grid-4 stagger reveal" style="margin-top:1.5rem;">
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">C — Context</p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Shared situational awareness</p></div>
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">F — Feedback</p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Loop speed and accuracy</p></div>
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">Q — Quality</p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">Outcome verification fidelity</p></div>
+      <div class="card-sm"><p class="text-label" style="color:var(--fg-muted);margin-bottom:0.5rem;">K — Knowledge</p><p style="font-size:0.8rem;font-weight:300;color:var(--fg-secondary);">User model depth and currency</p></div>
+    </div>
+
+    <!-- SIX RESEARCH TRADITIONS -->
+    <div class="reveal mt-xl" id="research-foundations">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">RESEARCH FOUNDATIONS</p>
+      <h3 class="text-subsection mb-lg">Six traditions that define the field.</h3>
+    </div>
+
+    <div class="reveal" style="border:1px solid var(--border);">
+      <div class="research-row">
+        <span class="research-id">A1</span>
+        <span class="research-name">Cognitive Extension</span>
+        <span class="research-desc">Clark &amp; Chalmers (1998) — external systems as part of cognition. The world model is an extended mind, not a tool.</span>
+      </div>
+      <div class="research-row">
+        <span class="research-id">A2</span>
+        <span class="research-name">Mixed-Initiative HCI</span>
+        <span class="research-desc">Horvitz (1999) — systems that proactively take initiative based on user context without explicit prompting.</span>
+      </div>
+      <div class="research-row">
+        <span class="research-id">A3</span>
+        <span class="research-name">Control Theory</span>
+        <span class="research-desc">Closed-loop feedback with policy correction. The governance engine is a control system operating on life outcomes.</span>
+      </div>
+      <div class="research-row">
+        <span class="research-id">A4</span>
+        <span class="research-name">Goal-Based Agents</span>
+        <span class="research-desc">Russell &amp; Norvig — goal-directed autonomous systems. XIOM extends this with persistent cross-session goal tracking.</span>
+      </div>
+      <div class="research-row">
+        <span class="research-id">A5</span>
+        <span class="research-name">Human–AI Teaming</span>
+        <span class="research-desc">McNeese et al. (2021) — co-adaptive joint cognitive systems where both agents update shared mental models.</span>
+      </div>
+      <div class="research-row">
+        <span class="research-id">A6</span>
+        <span class="research-name">Synergistic AI</span>
+        <span class="research-desc">Shneiderman (2020) — human-centered AI that enhances rather than replaces. XIOM's sigma gate operationalizes this.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 — MEMORY ARCHITECTURE
+     ═══════════════════════════════════════════════════════════ -->
+<section id="memory" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">5 — Memory Architecture</p>
+    <h2 class="text-section-title reveal" style="max-width:680px;">
+      Your context is yours.<br>It lives where you decide.
+    </h2>
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:580px;margin-top:1rem;">
+      Constitutional Memory is not a database. It's a structured representation of who you are,
+      what you care about, and what your AI is allowed to do on your behalf.
+    </p>
+
+    <!-- THREE PILLARS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">THREE ARCHITECTURAL PILLARS</p>
+      <h3 class="text-subsection mb-lg">How XIOM stores what matters.</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="memory-pillar">
+        <p class="pillar-icon">⟳</p>
+        <p class="pillar-title">Persistent Memory</p>
+        <p class="pillar-tech">Neo4j Graph Database</p>
+        <p class="pillar-desc">
+          Goals, constraints, relationships, and behavioral history stored as a versioned
+          knowledge graph. Every node has provenance — who created it, when, and why.
+        </p>
+      </div>
+      <div class="memory-pillar">
+        <p class="pillar-icon">◉</p>
+        <p class="pillar-title">User Model</p>
+        <p class="pillar-tech">Constitutional Graph</p>
+        <p class="pillar-desc">
+          A structured representation of your values, priorities, constraints, and preferences.
+          The governance engine reads this before taking any action.
+        </p>
+      </div>
+      <div class="memory-pillar">
+        <p class="pillar-icon">↺</p>
+        <p class="pillar-title">Policy Update</p>
+        <p class="pillar-tech">Outcome-Driven Insights</p>
+        <p class="pillar-desc">
+          Rules that work get reinforced. Rules that fail get flagged for review.
+          Your constitution improves over time — not by instruction, but by outcomes.
+        </p>
+      </div>
+    </div>
+
+    <!-- THREE OWNERSHIP PRINCIPLES -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">OWNERSHIP PRINCIPLES</p>
+      <h3 class="text-subsection mb-lg">What "yours" actually means.</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">Portable</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">
+          Your world model exports as structured JSON. Switch AI models, switch devices,
+          switch everything — your context travels with you.
+        </p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">Versioned</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">
+          Every change to your world model is versioned. Roll back to any prior state.
+          See exactly when a rule was added and what triggered it.
+        </p>
+      </div>
+      <div class="card">
+        <p class="text-label mb-sm" style="color:var(--fg-muted);">Provenance</p>
+        <p class="text-body-sm" style="color:var(--fg-secondary);">
+          Every fact has a source. Every policy has an author. Nothing is added to your
+          constitutional memory without a traceable origin.
+        </p>
+      </div>
+    </div>
+
+    <!-- WHAT IS / IS NOT STORED -->
+    <div class="grid-2 stagger reveal" style="margin-top:3rem;">
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">What Is Stored</p>
+        <ul class="check-list">
+          <li>Goals and sub-goals with priority scores</li>
+          <li>Constraints and hard rules (never do X)</li>
+          <li>Preferences and soft preferences</li>
+          <li>Decision history with receipts</li>
+          <li>Entity relationships (people, projects, contexts)</li>
+          <li>Behavioral patterns and drift signals</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">What Is Not Stored</p>
+        <ul class="x-list">
+          <li>Raw message content from AI conversations</li>
+          <li>Biometric or health data without explicit opt-in</li>
+          <li>Third-party data without provenance</li>
+          <li>Anything you delete — immediately purged</li>
+          <li>Inferred data not confirmed by you</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DATA CONTROL ACTIONS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">DATA CONTROL</p>
+      <h3 class="text-subsection mb-lg">You run the commands.</h3>
+    </div>
+
+    <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <button class="terminal-btn danger">
+        <span style="color:rgba(255,80,80,0.6);">$</span>&nbsp;xiom forget --topic "project-x"
+      </button>
+      <button class="terminal-btn danger">
+        <span style="color:rgba(255,80,80,0.6);">$</span>&nbsp;xiom redact --date-range "2025-01-01:2025-06-01"
+      </button>
+      <button class="terminal-btn">
+        <span style="color:var(--fg-muted);">$</span>&nbsp;xiom lock --node "finances" --read-only
+      </button>
+      <button class="terminal-btn">
+        <span style="color:var(--fg-muted);">$</span>&nbsp;xiom export --format json
+      </button>
+    </div>
+
+    <!-- EXPORT PREVIEW -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">EXPORT PREVIEW</p>
+      <h3 class="text-subsection mb-lg">What your world model looks like.</h3>
+    </div>
+
+    <div class="code-block reveal" style="max-width:680px;">
+<span class="code-comment">// xiom-world-model-export.json</span>
+{
+  <span class="code-key">"schema_version"</span>: <span class="code-string">"2.1.0"</span>,
+  <span class="code-key">"exported_at"</span>:    <span class="code-string">"2026-07-29T12:00:00Z"</span>,
+  <span class="code-key">"user_id"</span>:        <span class="code-string">"xiom_usr_a7f3c9"</span>,
+
+  <span class="code-key">"facts"</span>: [
+    { <span class="code-key">"id"</span>: <span class="code-string">"f001"</span>, <span class="code-key">"type"</span>: <span class="code-string">"goal"</span>,       <span class="code-key">"value"</span>: <span class="code-string">"Ship XIOM v1 by Q3"</span>,       <span class="code-key">"priority"</span>: <span class="code-value">0.95</span> },
+    { <span class="code-key">"id"</span>: <span class="code-string">"f002"</span>, <span class="code-key">"type"</span>: <span class="code-string">"constraint"</span>,  <span class="code-key">"value"</span>: <span class="code-string">"No decisions after 9pm"</span>,    <span class="code-key">"hard"</span>: <span class="code-value">true</span>    },
+    { <span class="code-key">"id"</span>: <span class="code-string">"f003"</span>, <span class="code-key">"type"</span>: <span class="code-string">"preference"</span>, <span class="code-key">"value"</span>: <span class="code-string">"Async over meetings"</span>,       <span class="code-key">"weight"</span>: <span class="code-value">0.8</span>  },
+    { <span class="code-key">"id"</span>: <span class="code-string">"f004"</span>, <span class="code-key">"type"</span>: <span class="code-string">"pattern"</span>,    <span class="code-key">"value"</span>: <span class="code-string">"Deep work: 6am–10am daily"</span>, <span class="code-key">"confidence"</span>: <span class="code-value">0.91</span> }
+  ],
+
+  <span class="code-key">"policies"</span>: [
+    { <span class="code-key">"id"</span>: <span class="code-string">"p001"</span>, <span class="code-key">"rule"</span>: <span class="code-string">"Alert if goal drift &gt; 3 days"</span>, <span class="code-key">"version"</span>: <span class="code-value">14</span>, <span class="code-key">"enabled"</span>: <span class="code-value">true</span> },
+    { <span class="code-key">"id"</span>: <span class="code-string">"p002"</span>, <span class="code-key">"rule"</span>: <span class="code-string">"Spend &gt; $500 requires confirm"</span>,  <span class="code-key">"version"</span>: <span class="code-value">7</span>,  <span class="code-key">"enabled"</span>: <span class="code-value">true</span> }
+  ],
+
+  <span class="code-key">"goals"</span>: [
+    { <span class="code-key">"id"</span>: <span class="code-string">"g001"</span>, <span class="code-key">"title"</span>: <span class="code-string">"Ship XIOM"</span>,          <span class="code-key">"status"</span>: <span class="code-string">"active"</span>,   <span class="code-key">"progress"</span>: <span class="code-value">0.72</span> },
+    { <span class="code-key">"id"</span>: <span class="code-string">"g002"</span>, <span class="code-key">"title"</span>: <span class="code-string">"Raise pre-seed round"</span>, <span class="code-key">"status"</span>: <span class="code-string">"blocked"</span>,  <span class="code-key">"blockers"</span>: <span class="code-value">3</span>    }
+  ]
+}
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8 — ROADMAP
+     ═══════════════════════════════════════════════════════════ -->
+<section id="roadmap" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">6 — Roadmap</p>
+    <h2 class="text-section-title reveal" style="max-width:620px;">
+      Phase 4 of 5.<br>The loop is closing.
+    </h2>
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:520px;margin-top:1rem;">
+      Each phase operationalizes one step of the governance loop.
+      We ship when the metric improves. We stop when it doesn't.
+    </p>
+
+    <!-- Progress bar -->
+    <div class="phase-progress-bar reveal" style="margin-top:3rem;">
+      <div class="phase-bar-segment done"></div>
+      <div class="phase-bar-segment done"></div>
+      <div class="phase-bar-segment done"></div>
+      <div class="phase-bar-segment done"></div>
+      <div class="phase-bar-segment current"></div>
+    </div>
+
+    <!-- Phase rows -->
+    <div class="reveal" style="border:1px solid var(--border);">
+
+      <!-- Phase 1 -->
+      <div class="phase-row">
+        <div class="phase-name-col">
+          <p class="phase-number">PHASE 01</p>
+          <p class="phase-name">Observe</p>
+          <span class="phase-tag done">✓ Done</span>
+        </div>
+        <div>
+          <p class="phase-col-label">What You Get</p>
+          <ul class="check-list">
+            <li>World model intake wizard</li>
+            <li>Goal + constraint capture</li>
+            <li>Daily signal monitoring</li>
+            <li>Constitutional Memory graph (Neo4j)</li>
+          </ul>
+        </div>
+        <div>
+          <p class="phase-col-label">Delivered</p>
+          <ul class="check-list">
+            <li>Intake API + onboarding flow</li>
+            <li>Neo4j world model schema v1</li>
+            <li>User model node types</li>
+            <li>Signal ingestion pipeline</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase-row">
+        <div class="phase-name-col">
+          <p class="phase-number">PHASE 02</p>
+          <p class="phase-name">Decide</p>
+          <span class="phase-tag done">✓ Done</span>
+        </div>
+        <div>
+          <p class="phase-col-label">What You Get</p>
+          <ul class="check-list">
+            <li>Priority scoring engine</li>
+            <li>Authority tier checks</li>
+            <li>Policy rule evaluation</li>
+            <li>Approval request flow</li>
+          </ul>
+        </div>
+        <div>
+          <p class="phase-col-label">Delivered</p>
+          <ul class="check-list">
+            <li>Guardian pipeline v1</li>
+            <li>Constitutional rule DSL</li>
+            <li>Sigma gate (σ) metric</li>
+            <li>Approval notification system</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="phase-row">
+        <div class="phase-name-col">
+          <p class="phase-number">PHASE 03</p>
+          <p class="phase-name">Act</p>
+          <span class="phase-tag done">✓ Done</span>
+        </div>
+        <div>
+          <p class="phase-col-label">What You Get</p>
+          <ul class="check-list">
+            <li>MCP tool execution layer</li>
+            <li>Calendar, email, file actions</li>
+            <li>Workflow automation engine</li>
+            <li>x402 payment protocol</li>
+          </ul>
+        </div>
+        <div>
+          <p class="phase-col-label">Delivered</p>
+          <ul class="check-list">
+            <li>MCP server (JSON-RPC)</li>
+            <li>Tool permission scoping</li>
+            <li>USDG micropayment gateway</li>
+            <li>Rollback mechanism v1</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="phase-row">
+        <div class="phase-name-col">
+          <p class="phase-number">PHASE 04</p>
+          <p class="phase-name">Verify</p>
+          <span class="phase-tag done">✓ Done</span>
+        </div>
+        <div>
+          <p class="phase-col-label">What You Get</p>
+          <ul class="check-list">
+            <li>Cryptographic receipts (Robinhood Chain)</li>
+            <li>Outcome confirmation loop</li>
+            <li>Audit log + export</li>
+            <li>AgentPassport NFT</li>
+          </ul>
+        </div>
+        <div>
+          <p class="phase-col-label">Delivered</p>
+          <ul class="check-list">
+            <li>Receipt anchoring on Base</li>
+            <li>BidWall contract (revenue)</li>
+            <li>Full audit trail API</li>
+            <li>Dashboard receipt viewer</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Phase 5 — current -->
+      <div class="phase-row" style="background:rgba(255,255,255,0.015);">
+        <div class="phase-name-col">
+          <p class="phase-number">PHASE 05</p>
+          <p class="phase-name">Evolve</p>
+          <span class="phase-tag current">You are here</span>
+        </div>
+        <div>
+          <p class="phase-col-label">What You Get</p>
+          <ul style="list-style:none;display:grid;gap:0.6rem;">
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-secondary);">→ &nbsp; Policy self-update from outcomes</li>
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-secondary);">→ &nbsp; World model drift detection</li>
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-secondary);">→ &nbsp; Co-adaptive learning loop</li>
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-secondary);">→ &nbsp; Full L5 Symbiotic AI runtime</li>
+          </ul>
+        </div>
+        <div>
+          <p class="phase-col-label">Milestones</p>
+          <ul style="list-style:none;display:grid;gap:0.6rem;">
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-muted);">○ &nbsp; Outcome feedback pipeline</li>
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-muted);">○ &nbsp; Policy versioning + diff engine</li>
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-muted);">○ &nbsp; Drift alert + re-prioritization</li>
+            <li style="font-size:0.875rem;font-weight:300;color:var(--fg-muted);">○ &nbsp; Public beta launch</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /phase rows -->
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9 — PRIVACY
+     ═══════════════════════════════════════════════════════════ -->
+<section id="privacy" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">7 — Privacy</p>
+    <h2 class="text-section-title reveal" style="max-width:620px;">
+      Your data is not our product.
+    </h2>
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:560px;margin-top:1rem;">
+      XIOM is built on a simple premise: your AI should answer to you, not to our business model.
+      Here is exactly what that means in practice.
+    </p>
+
+    <!-- SIX COMMITMENTS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">OUR COMMITMENTS</p>
+      <h3 class="text-subsection mb-lg">What we guarantee.</h3>
+    </div>
+
+    <div class="grid-3 stagger reveal">
+      <div class="privacy-commitment">
+        <p class="commitment-icon">[L]</p>
+        <p class="commitment-title">Local-First</p>
+        <p class="commitment-desc">Your world model runs on your device by default. Nothing leaves your machine without explicit sync authorization.</p>
+      </div>
+      <div class="privacy-commitment">
+        <p class="commitment-icon">[N]</p>
+        <p class="commitment-title">No Monetization</p>
+        <p class="commitment-desc">We do not sell, share, or monetize your behavioral data. Our revenue comes from subscriptions and x402 protocol fees.</p>
+      </div>
+      <div class="privacy-commitment">
+        <p class="commitment-icon">[P]</p>
+        <p class="commitment-title">Full Provenance</p>
+        <p class="commitment-desc">Every fact in your world model has a source and timestamp. Nothing is inferred without your review.</p>
+      </div>
+      <div class="privacy-commitment">
+        <p class="commitment-icon">[R]</p>
+        <p class="commitment-title">Revocable</p>
+        <p class="commitment-desc">Delete any fact, any policy, any memory — immediately and permanently. No backup copies retained.</p>
+      </div>
+      <div class="privacy-commitment">
+        <p class="commitment-icon">[A]</p>
+        <p class="commitment-title">Audit Trail</p>
+        <p class="commitment-desc">Every action XIOM takes on your behalf is logged, timestamped, and available for your review indefinitely.</p>
+      </div>
+      <div class="privacy-commitment">
+        <p class="commitment-icon">[S]</p>
+        <p class="commitment-title">Sovereign Export</p>
+        <p class="commitment-desc">Your entire world model exports as structured JSON at any time. No proprietary lock-in. GDPR Article 20 compliant.</p>
+      </div>
+    </div>
+
+    <!-- DATA WE PROCESS -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">DATA WE PROCESS</p>
+      <h3 class="text-subsection mb-lg">What we store and why.</h3>
+    </div>
+
+    <div class="reveal" style="border:1px solid var(--border);">
+      <div class="data-row"><span class="data-key">Account</span><span class="data-val">Email address, wallet address (optional), authentication tokens. Used for identity only.</span></div>
+      <div class="data-row"><span class="data-key">Content</span><span class="data-val">Goals, constraints, preferences, and facts you explicitly add to your world model.</span></div>
+      <div class="data-row"><span class="data-key">Connected Services</span><span class="data-val">OAuth tokens for calendar, email integrations. Read-only by default. Revocable at any time.</span></div>
+      <div class="data-row"><span class="data-key">System Metadata</span><span class="data-val">Action logs, receipt hashes, policy versions. Used for audit trail. Not used for analytics.</span></div>
+      <div class="data-row"><span class="data-key">Working Model</span><span class="data-val">The Neo4j graph of your goals, entities, and relationships. Stored locally or in your private cloud.</span></div>
+    </div>
+
+    <!-- TECHNICAL + LEGAL -->
+    <div class="reveal mt-xl">
+      <p class="text-label mb-sm" style="color:var(--fg-muted);">TECHNICAL &amp; LEGAL</p>
+      <h3 class="text-subsection mb-lg">The specifics.</h3>
+    </div>
+
+    <div class="grid-2 stagger reveal">
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">Security</p>
+        <ul class="check-list">
+          <li>TLS 1.3 for all data in transit</li>
+          <li>AES-256 encryption at rest</li>
+          <li>Zero-knowledge receipt anchoring on Robinhood Chain</li>
+          <li>No plaintext storage of sensitive fields</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">AI Model Interactions</p>
+        <ul class="check-list">
+          <li>Prompts sent to AI providers are ephemeral</li>
+          <li>No training on your data without opt-in</li>
+          <li>Provider selection is yours — swap anytime</li>
+          <li>All AI calls logged in your audit trail</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">Data Retention</p>
+        <ul class="check-list">
+          <li>Account data: retained until deletion request</li>
+          <li>World model: yours — delete any node anytime</li>
+          <li>Audit logs: 90 days by default, configurable</li>
+          <li>Backups: 7-day rolling, then purged</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="text-label mb-lg" style="color:var(--fg-muted);">Your Rights</p>
+        <ul class="check-list">
+          <li>Access: export full world model anytime (JSON)</li>
+          <li>Correction: edit any stored fact directly</li>
+          <li>Erasure: full account deletion within 24 hours</li>
+          <li>Portability: GDPR Article 20 compliant</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card reveal mt-lg" style="border-color:rgba(255,255,255,0.06);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex-wrap:wrap;">
+        <div>
+          <p class="text-label mb-sm" style="color:var(--fg-muted);">Contact</p>
+          <p style="font-size:0.875rem;font-weight:300;color:var(--fg-secondary);">Privacy questions: <a href="mailto:privacy@xiom-ai.com" style="color:var(--fg);text-decoration:underline;text-underline-offset:3px;">privacy@xiom-ai.com</a></p>
+        </div>
+        <div>
+          <p class="text-label mb-sm" style="color:var(--fg-muted);">Effective Date</p>
+          <p style="font-size:0.875rem;font-weight:300;color:var(--fg-secondary);font-family:var(--font-mono);">July 29, 2026</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 10 — CONNECT
+     ═══════════════════════════════════════════════════════════ -->
+<section id="connect" class="section section-panel connect-section">
+  <div class="container" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
+
+    <p class="text-label reveal" style="color:var(--fg-muted);">Connect</p>
+
+    <h2 class="text-section-title reveal" style="max-width:640px;margin-top:1.5rem;">
+      Ready to own your AI?
+    </h2>
+
+    <p class="text-body reveal" style="color:var(--fg-secondary);max-width:520px;margin:1.5rem auto 0;">
+      XIOM is in active development. We're building the infrastructure for
+      true human–AI partnership.
+    </p>
+
+    <div class="audience-tags reveal" style="margin:2.5rem 0;">
+      <span class="audience-tag">Founders</span>
+      <span class="audience-tag">Operators</span>
+      <span class="audience-tag">Creators</span>
+      <span class="audience-tag">Builders</span>
+    </div>
+
+    <a href="#" data-xiom-app-link data-xiom-app-path="/create-my-agent" class="btn-primary reveal" style="font-size:1rem;padding:1.125rem 3rem;letter-spacing:0.08em;">
+      Start in App →
+    </a>
+
+    <div class="social-links reveal">
+      <a href="https://twitter.com/xiom_ai" target="_blank" rel="noopener" class="social-link">X / Twitter</a>
+      <a href="https://linkedin.com/company/xiom-ai" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+      <a href="https://github.com/xiom-ai/xiom" target="_blank" rel="noopener" class="social-link">GitHub</a>
+    </div>
+
+    <p class="reveal" style="margin-top:5rem;font-size:0.8rem;font-weight:300;color:var(--fg-muted);font-style:italic;letter-spacing:0.03em;">
+      "The future of AI is not assistance — it's partnership."
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION — DOWNLOAD DESKTOP
+     ═══════════════════════════════════════════════════════════ -->
+<section id="download-desktop" class="section section-panel">
+  <div class="container">
+
+    <p class="section-number reveal">Download Desktop</p>
+
+    <h2 class="text-section-title reveal" style="max-width: 700px;">
+      Run XIOM on your machine.
+    </h2>
+
+    <p class="text-body reveal" style="color: var(--fg-secondary); max-width: 560px; margin-top: 1.5rem;">
+      XIOM Desktop hosts the MCP server locally, manages Neo4j, and pairs with your AI provider.
+      Download a release build or run from source during development.
+    </p>
+
+    <div class="download-grid reveal" style="margin-top: 3rem;">
+      <div class="download-card">
+        <h3 class="text-subsection" style="font-size: 1.1rem; margin-bottom: 0.75rem;">Windows</h3>
+        <p class="text-body-sm" style="color: var(--fg-secondary); margin-bottom: 1rem;">
+          Download the latest <code>desktop-v*</code> release for Windows x64 or ARM64.
+        </p>
+        <a href="https://github.com/xiom-ai/xiom/releases" target="_blank" rel="noopener" class="btn-primary" data-releases-link>GitHub Releases →</a>
+      </div>
+      <div class="download-card">
+        <h3 class="text-subsection" style="font-size: 1.1rem; margin-bottom: 0.75rem;">macOS</h3>
+        <p class="text-body-sm" style="color: var(--fg-secondary); margin-bottom: 1rem;">
+          Universal build for Apple Silicon and Intel (tag <code>desktop-v*</code>).
+        </p>
+        <a href="https://github.com/xiom-ai/xiom/releases" target="_blank" rel="noopener" class="btn-primary" data-releases-link>GitHub Releases →</a>
+      </div>
+      <div class="download-card">
+        <h3 class="text-subsection" style="font-size: 1.1rem; margin-bottom: 0.75rem;">Linux</h3>
+        <p class="text-body-sm" style="color: var(--fg-secondary); margin-bottom: 1rem;">
+          AppImage or tarball from GitHub Releases.
+        </p>
+        <a href="https://github.com/xiom-ai/xiom/releases" target="_blank" rel="noopener" class="btn-primary" data-releases-link>GitHub Releases →</a>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 4rem; padding: 2rem; border: 1px solid var(--border); background: var(--card-bg);">
+      <p class="text-label" style="color: var(--fg-muted); margin-bottom: 1rem;">From source (developers)</p>
+      <pre class="code-block" style="margin: 0;"><code>git clone https://github.com/xiom-ai/xiom.git
+cd xiom
+pnpm install
+pnpm desktop</code></pre>
+      <p class="text-body-sm" style="color: var(--fg-muted); margin-top: 1rem;">
+        Requires Node 22+, Rust stable, and Tauri CLI. Desktop dev server runs at <code>http://localhost:1420</code>.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+  </main>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">XIOM</div>
+    <nav class="footer-links">
+      <a href="#privacy" data-section-id="privacy" class="footer-section-link">Privacy</a>
+      <a href="#connect" data-section-id="connect" class="footer-section-link">Connect</a>
+      <a href="https://docs.xiom-ai.com" target="_blank" rel="noopener">Docs</a>
+      <a href="https://github.com/xiom-ai/xiom" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://twitter.com/xiom_ai" target="_blank" rel="noopener">X</a>
+      <a href="https://linkedin.com/company/xiom-ai" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+    <p class="footer-copy">© 2026 XIOM · Built on Robinhood Chain</p>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════════ -->
+<!-- Three.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/globe-hero.js"></script>
+<script src="js/typewriter.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/scroll.js"></script>
+<script src="js/metrics.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+name: Contract Tests
+
+on:
+  push:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/contract-test.yml'
+  pull_request:
+    paths:
+      - 'contracts/**'
+
+jobs:
+  foundry:
+    name: Foundry Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      - name: Check formatting
+        working-directory: contracts
+        run: forge fmt --check
+        continue-on-error: true
+      - name: Build
+        working-directory: contracts
+        run: forge build --sizes
+      - name: Test
+        working-directory: contracts
+        run: forge test -vvv --gas-report
+      - name: Coverage
+        working-directory: contracts
+        run: forge coverage
+        continue-on-error: true

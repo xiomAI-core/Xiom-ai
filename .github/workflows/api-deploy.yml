@@ -1,0 +1,56 @@
+name: API Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/api/**'
+      - 'packages/**'
+      - '.github/workflows/api-deploy.yml'
+      - 'scripts/deploy/**'
+
+jobs:
+  deploy:
+    name: Deploy xiom-api
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API
+        run: pnpm --filter @xiom/api... build
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+      - name: Configure Docker for GCR
+        run: gcloud auth configure-docker --quiet
+      - name: Build and push image
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          IMAGE="gcr.io/${PROJECT_ID}/xiom-api:${GITHUB_SHA}"
+          docker build -f apps/api/Dockerfile -t "${IMAGE}" -t "gcr.io/${PROJECT_ID}/xiom-api:latest" .
+          docker push "${IMAGE}"
+          docker push "gcr.io/${PROJECT_ID}/xiom-api:latest"
+          echo "IMAGE_URI=${IMAGE}" >> "$GITHUB_ENV"
+      - name: Deploy Cloud Run
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          IMAGE_URI: ${{ env.IMAGE_URI }}
+          CLOUD_RUN_SERVICE: xiom-api
+        run: bash scripts/deploy/api.sh
