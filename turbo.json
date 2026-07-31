@@ -19,7 +19,7 @@
       "dependsOn": ["^lint"]
     },
     "type-check": {
-      "dependsOn": ["^type-check"]
+      "dependsOn": ["^build"]
     },
     "clean": {
       "cache": false
