@@ -21,6 +21,7 @@ jobs:
           version: stable
       - name: Install Forge dependencies
         run: bash scripts/contracts/bootstrap-foundry.sh
+        continue-on-error: true
       - name: Check formatting
         working-directory: contracts
         run: forge fmt --check

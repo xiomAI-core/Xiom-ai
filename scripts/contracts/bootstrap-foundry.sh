@@ -5,12 +5,17 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "${ROOT}/contracts"
 
+# Prefer HTTPS when forge install clones via git
+git config --global url."https://github.com/".insteadOf "git://github.com/" || true
+
 install_if_missing() {
   local dir="$1"
   shift
   if [ ! -d "${dir}" ]; then
     echo "Installing ${dir}..."
     "$@"
+  else
+    echo "Already present: ${dir}"
   fi
 }
 

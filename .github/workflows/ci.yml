@@ -104,6 +104,7 @@ jobs:
           version: stable
       - name: Install Forge dependencies
         run: bash scripts/contracts/bootstrap-foundry.sh
+        continue-on-error: true
       - name: Run Foundry tests
         working-directory: contracts
         run: |
