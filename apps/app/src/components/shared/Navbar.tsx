@@ -5,6 +5,7 @@ import WalletButton from '@/components/wallet/WalletButton'
 import HolderTierBadge from '@/components/wallet/HolderTierBadge'
 import { useHolderTier } from '@/hooks/useHolderTier'
 import { useAccount } from 'wagmi'
+import { DOCS_URL } from '@/lib/urls'
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -29,7 +30,7 @@ export default function Navbar() {
             World Model
           </Link>
           <Link
-            href="https://docs.xiom-ai.com"
+            href={DOCS_URL}
             className="text-xs text-white/50 hover:text-white tracking-wider uppercase transition-colors"
             target="_blank"
             rel="noopener noreferrer"
@@ -66,7 +67,7 @@ export default function Navbar() {
             World Model
           </Link>
           <Link
-            href="https://docs.xiom-ai.com"
+            href={DOCS_URL}
             className="text-xs text-white/50 uppercase tracking-wider hover:text-white transition-colors"
             target="_blank"
             rel="noopener noreferrer"

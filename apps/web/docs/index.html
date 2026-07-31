@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>XIOM API — Docs</title>
+  <meta name="description" content="XIOM API reference — intake, world model, MCP, agent access, and install scripts." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050505;
+      --fg: #f5f5f5;
+      --muted: rgba(255, 255, 255, 0.55);
+      --border: rgba(255, 255, 255, 0.12);
+      --font: 'IBM Plex Sans', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+    }
+
+    .docs-top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 5, 5, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .docs-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--fg);
+    }
+
+    .docs-brand strong {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .docs-brand span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    .docs-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .docs-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.7rem;
+      border: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .docs-nav a:hover {
+      color: var(--fg);
+      border-color: var(--border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .docs-nav a.primary {
+      color: var(--fg);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+  </style>
+</head>
+<body>
+  <header class="docs-top">
+    <a class="docs-brand" href="/">
+      <strong>XIOM</strong>
+      <span>API Reference</span>
+    </a>
+    <nav class="docs-nav" aria-label="Docs navigation">
+      <a href="./openapi.json" target="_blank" rel="noopener">OpenAPI</a>
+      <a href="https://github.com/xiomAI-core/Xiom-ai" target="_blank" rel="noopener">GitHub</a>
+      <a class="primary" id="docs-launch-app" href="https://xiom-ai-app.vercel.app/">Launch App</a>
+    </nav>
+  </header>
+
+  <script src="../js/config.js"></script>
+  <script>
+    (function () {
+      var cfg = window.XIOM_CONFIG || {};
+      var launch = document.getElementById('docs-launch-app');
+      if (launch && cfg.appUrl) {
+        launch.setAttribute('href', cfg.appUrl.replace(/\/$/, '') + '/');
+      }
+    })();
+  </script>
+  <script
+    id="api-reference"
+    data-url="./openapi.json"
+    data-configuration='{"theme":"kepler","hideModels":true,"defaultOpenAllTags":true}'
+    src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.25.116"
+  ></script>
+</body>
+</html>

@@ -39,8 +39,14 @@
       : isVercel
         ? VERCEL_APP
         : PROD_APP,
-    // API not on Vercel yet — keep prod host; /docs works once API is deployed
+    // Live API host (Cloud Run). Docs UI is hosted on marketing until API is public.
     apiUrl: isLocal ? 'http://localhost:3001' : PROD_API,
+    // Interactive docs always available on the marketing site
+    docsUrl: isLocal
+      ? 'http://localhost:3000/docs/'
+      : isVercel
+        ? VERCEL_MARKETING + '/docs/'
+        : PROD_MARKETING + '/docs/',
     marketingUrl: isLocal
       ? 'http://localhost:3000'
       : isVercel
@@ -58,7 +64,15 @@
     });
 
     document.querySelectorAll('[data-xiom-api-link]').forEach(function (el) {
-      el.setAttribute('href', window.XIOM_CONFIG.apiUrl + '/docs');
+      // Prefer same-origin /docs when already on marketing (works on Vercel + custom domain)
+      var docsHref =
+        host.indexOf('xiom-marketing') !== -1 ||
+        host === 'xiom-ai.com' ||
+        host === 'www.xiom-ai.com' ||
+        isLocal
+          ? '/docs/'
+          : window.XIOM_CONFIG.docsUrl;
+      el.setAttribute('href', docsHref);
     });
 
     document.querySelectorAll('[data-releases-link]').forEach(function (el) {

@@ -13,6 +13,10 @@ export const APP_URL = process.env['NEXT_PUBLIC_APP_URL'] ?? PROD_APP;
 export const MARKETING_URL =
   process.env['NEXT_PUBLIC_MARKETING_URL'] ?? PROD_MARKETING;
 
+/** Interactive API docs (hosted on marketing until api.xiom-ai.com is live). */
+export const DOCS_URL =
+  process.env['NEXT_PUBLIC_DOCS_URL'] ?? `${MARKETING_URL}/docs/`;
+
 export function apiPath(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   return `${API_URL}${normalized}`;

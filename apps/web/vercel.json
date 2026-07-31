@@ -3,5 +3,18 @@
   "framework": null,
   "installCommand": "echo skip",
   "buildCommand": "echo skip",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/docs", "destination": "/docs/index.html" },
+    { "source": "/docs/", "destination": "/docs/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/docs/openapi.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ]
 }
