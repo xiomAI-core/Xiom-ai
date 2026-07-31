@@ -1595,25 +1595,79 @@
       <div class="download-card">
         <h3 class="text-subsection" style="font-size: 1.1rem; margin-bottom: 0.75rem;">Windows</h3>
         <p class="text-body-sm" style="color: var(--fg-secondary); margin-bottom: 1rem;">
-          Download the latest <code>desktop-v*</code> release for Windows x64 or ARM64.
+          Installer for Windows x64. ARM64 build available below.
         </p>
-        <a href="https://github.com/xiomAI-core/Xiom-ai/releases" target="_blank" rel="noopener" class="btn-primary" data-releases-link>GitHub Releases →</a>
+        <a
+          href="https://github.com/xiomAI-core/Xiom-ai/releases/download/desktop-v0.1.0/XIOM_0.1.0_x64-setup.exe"
+          class="btn-primary"
+          data-desktop-download="windows"
+          download
+        >Download for Windows →</a>
+        <p class="text-body-sm" style="color: var(--fg-muted); margin-top: 0.85rem;">
+          <a
+            href="https://github.com/xiomAI-core/Xiom-ai/releases/download/desktop-v0.1.0/XIOM_0.1.0_arm64-setup.exe"
+            data-desktop-download="windows-arm"
+            download
+            style="color: var(--fg-secondary); text-decoration: underline; text-underline-offset: 3px;"
+          >ARM64</a>
+          ·
+          <a
+            href="https://github.com/xiomAI-core/Xiom-ai/releases"
+            data-releases-link
+            target="_blank"
+            rel="noopener"
+            style="color: var(--fg-secondary); text-decoration: underline; text-underline-offset: 3px;"
+          >All releases</a>
+        </p>
       </div>
       <div class="download-card">
         <h3 class="text-subsection" style="font-size: 1.1rem; margin-bottom: 0.75rem;">macOS</h3>
         <p class="text-body-sm" style="color: var(--fg-secondary); margin-bottom: 1rem;">
-          Universal build for Apple Silicon and Intel (tag <code>desktop-v*</code>).
+          Disk image for Apple Silicon (<code>.dmg</code>).
         </p>
-        <a href="https://github.com/xiomAI-core/Xiom-ai/releases" target="_blank" rel="noopener" class="btn-primary" data-releases-link>GitHub Releases →</a>
+        <a
+          href="https://github.com/xiomAI-core/Xiom-ai/releases/download/desktop-v0.1.0/XIOM_0.1.0_aarch64.dmg"
+          class="btn-primary"
+          data-desktop-download="macos"
+          download
+        >Download for macOS →</a>
+        <p class="text-body-sm" style="color: var(--fg-muted); margin-top: 0.85rem;">
+          <a
+            href="https://github.com/xiomAI-core/Xiom-ai/releases"
+            data-releases-link
+            target="_blank"
+            rel="noopener"
+            style="color: var(--fg-secondary); text-decoration: underline; text-underline-offset: 3px;"
+          >All releases</a>
+        </p>
       </div>
       <div class="download-card">
         <h3 class="text-subsection" style="font-size: 1.1rem; margin-bottom: 0.75rem;">Linux</h3>
         <p class="text-body-sm" style="color: var(--fg-secondary); margin-bottom: 1rem;">
-          AppImage or tarball from GitHub Releases.
+          AppImage builds are not published yet. Check releases when available.
         </p>
-        <a href="https://github.com/xiomAI-core/Xiom-ai/releases" target="_blank" rel="noopener" class="btn-primary" data-releases-link>GitHub Releases →</a>
+        <a
+          href="https://github.com/xiomAI-core/Xiom-ai/releases"
+          class="btn-primary"
+          data-desktop-download="linux"
+          data-desktop-fallback="releases"
+          target="_blank"
+          rel="noopener"
+        >Coming soon →</a>
+        <p class="text-body-sm" style="color: var(--fg-muted); margin-top: 0.85rem;">
+          <a
+            href="https://github.com/xiomAI-core/Xiom-ai/releases"
+            data-releases-link
+            target="_blank"
+            rel="noopener"
+            style="color: var(--fg-secondary); text-decoration: underline; text-underline-offset: 3px;"
+          >All releases</a>
+        </p>
       </div>
     </div>
+    <p class="text-body-sm reveal" style="color: var(--fg-muted); margin-top: 1.25rem;" data-desktop-version>
+      Latest: desktop-v0.1.0
+    </p>
 
     <div class="reveal" style="margin-top: 4rem; padding: 2rem; border: 1px solid var(--border); background: var(--card-bg);">
       <p class="text-label" style="color: var(--fg-muted); margin-bottom: 1rem;">From source (developers)</p>
