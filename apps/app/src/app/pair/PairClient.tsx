@@ -1,10 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
-const RELEASES_URL = 'https://github.com/xiom-ai/xiom/releases'
+const RELEASES_URL = 'https://github.com/xiomAI-core/Xiom-ai/releases'
 const MARKETING_DOWNLOAD = 'https://xiom-ai.com/#download-desktop'
 
 function marketingDownloadUrl(): string {
@@ -104,12 +105,12 @@ export default function PairClient() {
         </ol>
 
         <div className="flex flex-wrap gap-4">
-          <a
+          <Link
             href="/"
             className="font-mono text-xs uppercase tracking-wider border border-white/20 px-5 py-2.5 text-white/70 hover:text-white hover:border-white/40 transition-colors"
           >
             Back to app
-          </a>
+          </Link>
           <a
             href={RELEASES_URL}
             target="_blank"

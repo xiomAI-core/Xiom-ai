@@ -27,8 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: '9'
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -44,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build Tauri app
-        run: pnpm --filter @xiom/desktop tauri build ${{ matrix.args }}
+        run: pnpm --filter @xiom/desktop exec tauri build ${{ matrix.args }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -56,6 +54,7 @@ jobs:
   release:
     name: Soft release
     needs: build
+    if: ${{ needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

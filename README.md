@@ -91,7 +91,7 @@ xiom/
 ### 1. Clone
 
 ```bash
-git clone https://github.com/xiom-ai/xiom.git
+git clone https://github.com/xiomAI-core/Xiom-ai.git
 cd xiom
 ```
 

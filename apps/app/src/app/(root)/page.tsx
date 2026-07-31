@@ -105,7 +105,7 @@ export default function HomePage() {
             Seven pillars. One operating system.
           </h2>
           <p className="text-sm text-white/45 mb-12 max-w-2xl leading-relaxed">
-            XIOM's architecture is modular. Each pillar ships independently and
+            XIOM&apos;s architecture is modular. Each pillar ships independently and
             composes into a unified AI operating system for your life.
           </p>
           <CapabilityModules />

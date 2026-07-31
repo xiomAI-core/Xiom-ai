@@ -12,7 +12,7 @@
     appUrl: isLocal ? 'http://localhost:3002' : 'https://app.xiom-ai.com',
     apiUrl: isLocal ? 'http://localhost:3001' : 'https://api.xiom-ai.com',
     marketingUrl: isLocal ? 'http://localhost:3000' : 'https://xiom-ai.com',
-    releasesUrl: 'https://github.com/xiom-ai/xiom/releases',
+    releasesUrl: 'https://github.com/xiomAI-core/Xiom-ai/releases',
   };
 
   function applyAppLinks() {
