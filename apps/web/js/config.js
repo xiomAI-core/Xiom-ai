@@ -8,12 +8,15 @@
   var host = location.hostname;
   var isLocal = host === 'localhost' || host === '127.0.0.1';
   var isVercel = host.indexOf('vercel.app') !== -1;
+  // Custom domain currently fronts the Vercel marketing deploy (not full xiom-ai.com prod yet)
+  var isXiomFun = host === 'xiom.fun' || host === 'www.xiom.fun';
+  var useVercelLinks = isVercel || isXiomFun;
 
-  // Vercel demo URLs (no custom domain yet)
+  // Vercel demo URLs
   var VERCEL_MARKETING = 'https://xiom-marketing.vercel.app';
   var VERCEL_APP = 'https://xiom-ai-app.vercel.app';
 
-  // Production (after domain purchase)
+  // Production (full stack on xiom-ai.com — not used for xiom.fun yet)
   var PROD_MARKETING = 'https://xiom-ai.com';
   var PROD_APP = 'https://app.xiom-ai.com';
   var PROD_API = 'https://api.xiom-ai.com';
@@ -36,22 +39,24 @@
   window.XIOM_CONFIG = {
     appUrl: isLocal
       ? 'http://localhost:3002'
-      : isVercel
+      : useVercelLinks
         ? VERCEL_APP
         : PROD_APP,
     // Live API host (Cloud Run). Docs UI is hosted on marketing until API is public.
     apiUrl: isLocal ? 'http://localhost:3001' : PROD_API,
-    // Interactive docs always available on the marketing site
+    // Interactive docs: Vercel marketing (and xiom.fun) until prod docs exist
     docsUrl: isLocal
       ? 'http://localhost:3000/docs/'
-      : isVercel
+      : useVercelLinks
         ? VERCEL_MARKETING + '/docs/'
         : PROD_MARKETING + '/docs/',
     marketingUrl: isLocal
       ? 'http://localhost:3000'
-      : isVercel
-        ? VERCEL_MARKETING
-        : PROD_MARKETING,
+      : isXiomFun
+        ? 'https://xiom.fun'
+        : useVercelLinks
+          ? VERCEL_MARKETING
+          : PROD_MARKETING,
     releasesUrl: RELEASES_URL,
     desktopDownloads: Object.assign({}, FALLBACK_DOWNLOADS),
   };
@@ -64,14 +69,15 @@
     });
 
     document.querySelectorAll('[data-xiom-api-link]').forEach(function (el) {
-      // Prefer same-origin /docs when already on marketing (works on Vercel + custom domain)
+      // xiom.fun / Vercel demo → Vercel docs; local & future prod marketing → same-origin /docs
       var docsHref =
-        host.indexOf('xiom-marketing') !== -1 ||
-        host === 'xiom-ai.com' ||
-        host === 'www.xiom-ai.com' ||
-        isLocal
-          ? '/docs/'
-          : window.XIOM_CONFIG.docsUrl;
+        useVercelLinks
+          ? window.XIOM_CONFIG.docsUrl
+          : host === 'xiom-ai.com' ||
+              host === 'www.xiom-ai.com' ||
+              isLocal
+            ? '/docs/'
+            : window.XIOM_CONFIG.docsUrl;
       el.setAttribute('href', docsHref);
     });
 
