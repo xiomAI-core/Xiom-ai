@@ -56,6 +56,10 @@ coverage/
 *.tsbuildinfo
 .cache/
 
+# Team-only content (not for public repo)
+docs/XIOM-CONTEXT.md
+docs/XIOM-CONTEXT.pdf
+
 # Foundry
 contracts/out/
 contracts/cache/
