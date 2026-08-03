@@ -199,6 +199,9 @@
 
 .hud-nav-right {
   align-items: flex-end;
+  /* Pull items slightly inward from the far right edge */
+  padding-right: clamp(1.25rem, 12%, 4.5rem);
+  box-sizing: border-box;
 }
 
 .hud-nav-item {
