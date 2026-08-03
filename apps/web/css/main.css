@@ -1334,10 +1334,30 @@ strong { font-weight: 600; }
 }
 .footer-links a:hover { color: var(--fg); }
 
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.65rem;
+}
+
 .footer-copy {
   font-size: 0.7rem;
   color: var(--fg-dim);
   font-family: var(--font-mono);
+  margin: 0;
+}
+
+.ca-chip--footer {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  .footer-meta {
+    align-items: flex-start;
+    width: 100%;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────

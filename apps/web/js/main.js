@@ -257,9 +257,57 @@
     });
   }
 
+  // Copy full token CA from short-display chips
+  function setupCaCopyChips() {
+    const FULL_CA = '0x142d92d960b78232aa0c8e78ea527279e6f91dab';
+
+    document.querySelectorAll('[data-ca]').forEach((chip) => {
+      chip.addEventListener('click', async () => {
+        const ca = (chip.getAttribute('data-ca') || FULL_CA).trim();
+        const hint = chip.querySelector('[data-ca-hint]');
+        const prev = hint ? hint.textContent : '';
+
+        try {
+          await navigator.clipboard.writeText(ca);
+          chip.classList.add('is-copied');
+          if (hint) hint.textContent = 'Copied';
+          setTimeout(() => {
+            chip.classList.remove('is-copied');
+            if (hint) hint.textContent = prev || 'Copy';
+          }, 1600);
+        } catch {
+          // Fallback for older browsers / denied clipboard
+          const input = document.createElement('textarea');
+          input.value = ca;
+          input.setAttribute('readonly', '');
+          input.style.position = 'fixed';
+          input.style.opacity = '0';
+          document.body.appendChild(input);
+          input.select();
+          try {
+            document.execCommand('copy');
+            chip.classList.add('is-copied');
+            if (hint) hint.textContent = 'Copied';
+            setTimeout(() => {
+              chip.classList.remove('is-copied');
+              if (hint) hint.textContent = prev || 'Copy';
+            }, 1600);
+          } catch {
+            if (hint) hint.textContent = 'Failed';
+            setTimeout(() => {
+              if (hint) hint.textContent = prev || 'Copy';
+            }, 1600);
+          }
+          document.body.removeChild(input);
+        }
+      });
+    });
+  }
+
   function init() {
     injectStyles();
     setupCodeCopyButtons();
+    setupCaCopyChips();
     setupLiveMetricsPolling();
     setupRoadmapProgress();
     setupFooterSectionLinks();
