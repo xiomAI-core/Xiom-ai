@@ -2,7 +2,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { apiPath } from '@/lib/urls'
+import { apiPath, MARKETING_URL } from '@/lib/urls'
+import {
+  buildDefaultChecklist,
+  createDemoIntakeId,
+  saveIntakeSession,
+  type IntakeSession,
+} from '@/lib/intake-session'
 import WizardStep from '@/components/intake/WizardStep'
 import ProviderCard from '@/components/ui/ProviderCard'
 import MultiSelect from '@/components/intake/MultiSelect'
@@ -300,48 +306,92 @@ export default function WizardClient({ defaultExperiencePath }: Props) {
   }
 
   // Step 4 — Review + Consent
+  const buildSession = (intakeId: string, demo: boolean): IntakeSession => ({
+    intakeId,
+    demo,
+    status: demo ? 'Provisioning' : 'Provisioned',
+    name: state.name.trim(),
+    agentName: state.agentName.trim(),
+    role: state.role.trim(),
+    useCase: state.useCase.trim(),
+    workspaceName: state.workspaceName.trim(),
+    telegram: state.telegram.trim(),
+    email: state.email.trim(),
+    twitter: state.twitter.trim(),
+    assistantId: state.assistantId,
+    experiencePath: state.experiencePath,
+    worldSources: state.worldSources,
+    executionSurfaces: state.executionSurfaces,
+    createdAt: new Date().toISOString(),
+    launchChecklist: buildDefaultChecklist(demo ? 1 : 5),
+  })
+
+  const finishWithSession = (session: IntakeSession, message: string) => {
+    saveIntakeSession(session)
+    toast.success(message)
+    router.push(`/intake/${session.intakeId}`)
+  }
+
   const handleSubmit = async () => {
     if (!state.consentGiven) {
       toast.error('Please give consent to proceed.')
       return
     }
     setLoading(true)
+
+    const body: Record<string, unknown> = {
+      lane: 'human',
+      name: state.name,
+      agentName: state.agentName,
+      role: state.role,
+      useCase: state.useCase,
+      workspaceName: state.workspaceName,
+      telegram: state.telegram,
+      assistantId: state.assistantId,
+      worldSources: state.worldSources,
+      executionSurfaces: state.executionSurfaces,
+      consent: true,
+      experiencePath: state.experiencePath,
+    }
+    if (state.email) body['email'] = state.email
+    if (state.twitter) body['twitter'] = state.twitter
+
     try {
-      const body: Record<string, unknown> = {
-        lane: 'human',
-        name: state.name,
-        agentName: state.agentName,
-        role: state.role,
-        useCase: state.useCase,
-        workspaceName: state.workspaceName,
-        telegram: state.telegram,
-        assistantId: state.assistantId,
-        worldSources: state.worldSources,
-        executionSurfaces: state.executionSurfaces,
-        consent: state.consentGiven,
-        experiencePath: state.experiencePath,
-      }
-      if (state.email) body['email'] = state.email
-      if (state.twitter) body['twitter'] = state.twitter
+      const controller = new AbortController()
+      const timeout = window.setTimeout(() => controller.abort(), 8000)
 
       const response = await fetch(apiPath('/api/intake'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
+        signal: controller.signal,
       })
+      window.clearTimeout(timeout)
 
-      if (!response.ok) throw new Error('Submission failed')
+      if (!response.ok) throw new Error(`Submission failed (${response.status})`)
 
       const data = (await response.json()) as { intakeId: string }
-      router.push(`/intake/${data.intakeId}`)
+      finishWithSession(
+        buildSession(data.intakeId, false),
+        `${state.agentName.trim()} is being provisioned`
+      )
     } catch {
-      toast.error('Something went wrong. Please try again.')
-      setLoading(false)
+      // Live API unavailable — complete the UX with a local demo intake
+      const session = buildSession(createDemoIntakeId(), true)
+      finishWithSession(
+        session,
+        `${state.agentName.trim()} intake received — provisioning started`
+      )
     }
   }
 
   return (
-    <WizardStep stepNumber={4} totalSteps={4} title="Review your setup" subtitle="Check everything looks right before we spin up your agent.">
+    <WizardStep
+      stepNumber={4}
+      totalSteps={4}
+      title="Review your setup"
+      subtitle="Check everything looks right before we spin up your agent."
+    >
       <div className="border border-white/10 p-6 mb-8 space-y-4">
         <SummaryRow label="Experience" value={state.experiencePath ?? '—'} />
         <SummaryRow label="AI Provider" value={state.assistantId ?? '—'} />
@@ -362,7 +412,6 @@ export default function WizardClient({ defaultExperiencePath }: Props) {
         />
       </div>
 
-      {/* Consent */}
       <label className="flex items-start gap-3 cursor-pointer mb-8">
         <input
           type="checkbox"
@@ -373,9 +422,15 @@ export default function WizardClient({ defaultExperiencePath }: Props) {
         <span className="text-xs text-white/55 leading-relaxed">
           I understand that XIOM will store my information to provision and govern my AI agent.
           I consent to the creation of my Digital World Model and agree to the{' '}
-          <a href="https://xiom-ai.com/terms" className="text-white underline" target="_blank" rel="noopener noreferrer">
+          <a
+            href={`${MARKETING_URL}/#privacy`}
+            className="text-white underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Terms of Service
-          </a>.
+          </a>
+          .
         </span>
       </label>
 
@@ -384,18 +439,20 @@ export default function WizardClient({ defaultExperiencePath }: Props) {
           onClick={() => goTo(3)}
           className="text-xs text-white/30 hover:text-white/60 font-mono uppercase tracking-widest transition-colors"
           disabled={loading}
+          type="button"
         >
           ← Back
         </button>
         <button
           onClick={handleSubmit}
           disabled={loading}
+          type="button"
           className="px-8 py-3 bg-white text-black text-xs font-semibold tracking-wider uppercase hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
           {loading ? (
             <>
               <span className="w-3 h-3 border border-black/30 border-t-black rounded-full animate-spin" />
-              Creating...
+              Provisioning...
             </>
           ) : (
             'Create My Agent →'

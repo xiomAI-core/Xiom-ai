@@ -17,6 +17,8 @@ export const MARKETING_URL =
 export const DOCS_URL =
   process.env['NEXT_PUBLIC_DOCS_URL'] ?? `${MARKETING_URL}/docs/`;
 
+export const DESKTOP_DOWNLOAD_URL = `${MARKETING_URL}/#download-desktop`;
+
 export function apiPath(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   return `${API_URL}${normalized}`;
@@ -24,4 +26,9 @@ export function apiPath(path: string): string {
 
 export function installScriptUrl(provider: string): string {
   return `${API_URL}/install/${provider}`;
+}
+
+export function pairUrl(code: string): string {
+  const normalized = code.startsWith('/') ? code.slice(1) : code;
+  return `${APP_URL}/pair?code=${encodeURIComponent(normalized)}`;
 }
